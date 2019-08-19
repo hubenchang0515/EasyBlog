@@ -15,6 +15,7 @@ def init() :
     app.config['SQLALCHEMY_DATABASE_URI'] = sql_url
     #app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+    app.config['SECRET_KEY'] = os.urandom(64)
 
     bootstrap.init_app(app)
     alchemy.init_app(app)

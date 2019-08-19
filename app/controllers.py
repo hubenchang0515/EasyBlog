@@ -1,6 +1,6 @@
 from . import views
 from .models import *
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for, session
 from sqlalchemy.exc import IntegrityError
 import hashlib
 
@@ -37,13 +37,27 @@ def article_list() :
     pagination = Article.query.order_by(Article.date.desc()).paginate(page=page, per_page=10)
     return views.render_article_list(site_title(), pagination)
 
+# 检测session，判断是否登录
+def is_login() :
+    username = session.get('username')
+    password = session.get('password')
+    user = User.query.filter_by(id=User.id_of_admin, username=username, password=password).first()
+    if user == None :
+        return False
+    else :
+        return True
+
+
 ###################################################################
 # 管理页面
 ###################################################################
 
 #admin欢迎页
 def admin_index() :
-    return views.render_admin_index(site_title())
+    if is_login() :
+        return views.render_admin_index(site_title())
+    else :
+        return redirect(url_for('/admin/login'))
 
 # 登录
 def login() :
@@ -53,10 +67,13 @@ def login() :
         return views.render_login(site_title())
     else :
         password = encrypt(username, password)
-        user = User.query.filter_by(username=username, password=password).first()
+        user = User.query.filter_by(id=User.id_of_admin, username=username, password=password).first()
         if user == None :
             return views.render_login(site_title(), "用户名或密码错误。")
         else :
+            session['id'] = user.id
+            session['username'] = username
+            session['password'] = password
             return redirect(url_for('/admin/'))
 
 
