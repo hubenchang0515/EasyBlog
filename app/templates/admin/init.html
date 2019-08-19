@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %} Easy Blog {% endblock %}
+
+{% block content %}
+
+<div class="panel panel-default" style="width:600px; margin:auto;">
+    <div class="panel-heading">
+        <h3 class="panel-title">管理用户初始化</h3>
+    </div>
+    
+    <div class="panel-body">
+        <form class="form-horizontal" role="form" action="/init_result" method="POST">
+            <div class="form-group">
+                <label for="username" class="col-sm-2 control-label">用户名</label>
+                <div class="col-sm-10">
+                    <input id="username" type="text" class="form-control" name="username" placeholder="Username">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-10">
+                    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password-again" class="col-sm-2 control-label">重复密码</label>
+                <div class="col-sm-10">
+                    <input id="password-again" type="password" class="form-control" name="password-again" placeholder="Password Again">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="site" class="col-sm-2 control-label">站点标题</label>
+                <div class="col-sm-10">
+                    <input id="site" type="text" class="form-control" name="site" placeholder="Title">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="e-mail" class="col-sm-2 control-label">邮箱</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="e-mail" placeholder="E-Mail">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default" onclick="return check()">确定</button>
+                </div>
+            </div>
+        </form>
+        <script type="text/javascript">
+            function check()
+            {
+                let name = document.getElementById("username").value
+                let pw1 = document.getElementById("password").value
+                let pw2 = document.getElementById("password-again").value
+                let site = document.getElementById("site").value
+                console.log(name, pw1, pw2)
+                if(name.length < 5 || name.length > 64)
+                {
+                    alert("用户名的长度应该在5~64个字符之间。")
+                    return false
+                }
+                else if(pw1.length < 8 || pw1.length > 64)
+                {
+                    alert("密码的长度应该在8~64个字符之间。")
+                    return false
+                }
+                else if(pw1 != pw2)
+                {
+                    alert("两次输入的密码不同！")
+                    return false
+                }
+                else if(site.length < 2 || site.length > 15)
+                {
+                    alert("站点标题的长度应该在2~64个字符之间。")
+                    return false
+                }
+                else
+                {
+                    return true
+                }
+            }
+        </script>
+    </div>
+</div>
+
+{% endblock %}

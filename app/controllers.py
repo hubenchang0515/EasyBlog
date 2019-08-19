@@ -1,8 +1,12 @@
 from . import views
 from .models import *
-from flask import request 
+from flask import request, redirect, url_for
 from sqlalchemy.exc import IntegrityError
 import hashlib
+
+###################################################################
+# 辅助函数
+###################################################################
 
 # 加密
 def encrypt(salt, data) :
@@ -10,16 +14,50 @@ def encrypt(salt, data) :
     encryptor.update(data.encode("utf-8"))
     return encryptor.hexdigest()
 
+# 站点标题
+def site_title() :
+    user = User.query.filter_by(id=User.id_of_admin).first()
+    if user == None :
+        return "Easy Blog"
+    else :
+        return user.title
+
+###################################################################
+# 普通页面
+###################################################################
+
 # 首页
 def index() :
     article = Article.query.order_by(Article.date.desc()).first()
-    return views.render_article(article)
+    return views.render_article(site_title(), article)
 
 # 文章列表
 def article_list() :
     page = request.args.get('page', 1, type=int)
     pagination = Article.query.order_by(Article.date.desc()).paginate(page=page, per_page=10)
-    return views.render_article_list(pagination)
+    return views.render_article_list(site_title(), pagination)
+
+###################################################################
+# 管理页面
+###################################################################
+
+#admin欢迎页
+def admin_index() :
+    return views.render_admin_index(site_title())
+
+# 登录
+def login() :
+    username = request.form.get('username')
+    password = request.form.get('password')
+    if username == None and password == None :
+        return views.render_login(site_title())
+    else :
+        password = encrypt(username, password)
+        user = User.query.filter_by(username=username, password=password).first()
+        if user == None :
+            return views.render_login(site_title(), "用户名或密码错误。")
+        else :
+            return redirect(url_for('/admin/'))
 
 
 ###################################################################
@@ -32,6 +70,7 @@ def init_result() :
     username = request.form.get('username')
     password = request.form.get('password')
     password2 = request.form.get('password-again')
+    title = request.form.get('site')
     email = request.form.get('e-mail')
 
     if password != password2 :
@@ -41,7 +80,7 @@ def init_result() :
 
     admin = User.query.filter_by(role_id=Role.id_of_admin).first()
     if admin == None :
-        admin = User(id=User.id_of_admin, role_id=Role.id_of_admin, username=username, password=password, email=email)
+        admin = User(id=User.id_of_admin, role_id=Role.id_of_admin, username=username, password=password,title=title, email=email)
     else :
         admin.username = username
         admin.password = password

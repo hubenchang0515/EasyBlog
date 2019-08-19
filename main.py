@@ -6,8 +6,19 @@ from app.models import create_database, init_database
 import app.controllers 
 
 routes = [
+    ###################################################################
+    # 普通页面
+    ###################################################################
     ['/',                   app.controllers.index],
-    ['/article_list',       app.controllers.article_list]
+    ['/article_list',       app.controllers.article_list],
+
+
+    ###################################################################
+    # 管理页面
+    ###################################################################
+    ['/admin/',             app.controllers.admin_index],
+    ['/admin/login',        app.controllers.login],
+    
 ]
 
 if __name__ == "__main__":

@@ -1,0 +1,37 @@
+{% extends "/admin/base.html" %}
+
+{% block article %}
+<div class="panel panel-success" style="width:600px; margin:auto;">
+    <div class="panel-heading">
+        <h3 class="panel-title">欢迎</h3>
+    </div>
+
+    <div class="panel-body">
+        已登录到管理用户。
+    </div>
+</div>
+
+<br/>
+<div class="panel panel-warning" style="width:600px; margin:auto;">
+    <div class="panel-heading">
+        <h3 class="panel-title">警告</h3>
+    </div>
+
+    <div class="panel-body">
+        请确认 admin.py 进程已经关闭，以防他人篡改管理用户。
+    </div>
+</div>
+
+<br/>
+<div class="panel panel-info" style="width:600px; margin:auto;">
+    <div class="panel-heading">
+        <h3 class="panel-title">反馈</h3>
+    </div>
+
+    <div class="panel-body">
+        发现Bug或有任何建议，可以在
+        <a href="https://github.com/hubenchang0515/EasyBlog/issues">Easy Blog的GitHub仓库</a>
+        中提交Issue反馈。
+    </div>
+</div>
+{% endblock %}

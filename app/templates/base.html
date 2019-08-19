@@ -1,6 +1,6 @@
 {% extends "bootstrap/base.html" %}
 
-{% block title %} Easy Blog {% endblock %}
+{% block title %} {{ site_title }} {% endblock %}
 
 {% block styles %}
     {{ super() }}
@@ -23,7 +23,7 @@
 <div class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Easy Blog</a>
+            <a class="navbar-brand" href="/">{{ site_title }}</a>
         </div>
         <div>
             <ul class="nav navbar-nav">

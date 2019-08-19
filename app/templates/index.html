@@ -8,14 +8,13 @@
     console.log(markdown)
     document.getElementById("content").innerText = markdown
     document.getElementById("content").innerHTML = marked(markdown)
-    // hljs.initHighlightingOnLoad()
     window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('surface')]);
 </script>
 {% endblock %}
 
 {% block article %}
 <article>
-    {% if title == None %}
+    {% if article == None %}
         <h1>Welcome</h1>
     {% else %}
         <h1>{{ article.title }}</h1>
