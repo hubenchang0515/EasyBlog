@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %} Easy Blog {% endblock %}
+
+{% block content %}
+{% if success %}
+<div class="panel panel-success" style="width:600px; margin:auto;">
+    <div class="panel-heading">
+        <h3 class="panel-title">成功</h3>
+    </div>
+    <div class="panel-body">
+        管理用户初始化成功！请切换到 80 端口，并关闭 admin.py 进程。
+    </div>
+{% else %}
+<div class="panel panel-danger" style="width:600px; margin:auto;">
+    <div class="panel-heading">
+        <h3 class="panel-title">失败</h3>
+    </div>
+    <div class="panel-body">
+        {{ message }}
+    </div>
+{% endif %}
+</div>
+
+<br/>
+<div class="panel panel-warning" style="width:600px; margin:auto;">
+    <div class="panel-heading">
+        <h3 class="panel-title">警告</h3>
+    </div>
+
+    <div class="panel-body">
+        若无需使用管理用户初始化功能，请务必关闭 admin.py 进程，以防他人篡改管理用户。
+    </div>
+</div>
+
+<br/>
+<div class="panel panel-info" style="width:600px; margin:auto;">
+    <div class="panel-heading">
+        <h3 class="panel-title">反馈</h3>
+    </div>
+
+    <div class="panel-body">
+        发现Bug或有任何建议，可以在
+        <a href="https://github.com/hubenchang0515/EasyBlog/issues">Easy Blog的GitHub仓库</a>
+        中提交Issue反馈。
+    </div>
+</div>
+
+{% endblock %}

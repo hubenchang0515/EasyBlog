@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+{{ super() }}
+
+<script type="text/javascript">
+    var markdown = document.getElementById("markdown").innerText
+    console.log(markdown)
+    document.getElementById("content").innerText = markdown
+    document.getElementById("content").innerHTML = marked(markdown)
+    // hljs.initHighlightingOnLoad()
+    window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('surface')]);
+</script>
+{% endblock %}
+
+{% block article %}
+<article>
+    {% if title == None %}
+        <h1>Welcome</h1>
+    {% else %}
+        <h1>{{ article.title }}</h1>
+        <p>阅读({{ article.reading }}) {{ moment(article.date).format('LLL') }}</p>
+        <p id="content" class="surface"></p>
+    {% endif %}
+</article>
+{% endblock %}
+
+{% block aside %}
+<h4>Aside</h4>
+{% endblock %}
+
+{% block seo %}   {% if article.content != None %}
+<article class="hide"><pre id="markdown">{{ article.content }}</pre></article>
+{% endif %}   {% endblock%}

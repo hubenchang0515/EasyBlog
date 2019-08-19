@@ -1,0 +1,60 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %} Easy Blog {% endblock %}
+
+{% block styles %}
+    {{ super() }}
+
+    <link href="/static/css/prism.css" rel="stylesheet" />
+    <link href='/static/css/basic.css' rel='stylesheet'/>
+    <link href='/static/css/highlight.css' rel='stylesheet'/>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="/static/js/marked.js"></script>
+    <!-- <script type="text/javascript" src="/static/js/highlight.pack.js"></script> -->
+    <script src="/static/js/prism.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    {{ super() }}
+    {{ moment.include_moment() }}
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Easy Blog</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="/article_list">文章</a></li>
+                <li><a href="/message">留言</a></li>
+                <li><a href="/admin">管理</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <article class="col-lg-8">
+            {% block article %}
+            {% endblock %}
+        </article>
+        <aside class="col-lg-4">
+            {% block aside %}
+            {% endblock %}
+        </aside>
+        <footer>
+                {% block footer %}
+                {% endblock %}
+        </footer>
+    </div>
+</div>
+
+    {% block seo %}
+    {% endblock%}
+{% endblock %}
