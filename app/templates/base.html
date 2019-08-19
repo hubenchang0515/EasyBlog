@@ -23,9 +23,16 @@
 <div class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target="#navbar-collapse-target">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             <a class="navbar-brand" href="/">{{ site_title }}</a>
         </div>
-        <div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-target">
             <ul class="nav navbar-nav">
                 <li><a href="/article_list">文章</a></li>
                 <li><a href="/message">留言</a></li>
@@ -40,13 +47,16 @@
 
 <div class="container">
     <div class="row">
-        <article class="col-lg-8">
+        <article class="col-lg-10">
             {% block article %}
             {% endblock %}
+            <br/>
         </article>
-        <aside class="col-lg-4">
+        <aside class="col-lg-2">
             {% block aside %}
             {% endblock %}
+            
+            <br/>
         </aside>
         <footer>
                 {% block footer %}
