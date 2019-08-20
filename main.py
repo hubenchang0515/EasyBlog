@@ -16,9 +16,10 @@ routes = [
     ###################################################################
     # 管理页面
     ###################################################################
-    ['/admin/',             app.controllers.admin_index],
-    ['/admin/login',        app.controllers.login],
-    ['/admin/edit',         app.controllers.edit],
+    ['/admin/',                 app.controllers.admin_index],
+    ['/admin/login',            app.controllers.login],
+    ['/admin/edit',             app.controllers.edit],
+    ['/admin/article/create',   app.controllers.article_create],
     
 ]
 

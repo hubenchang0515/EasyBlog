@@ -6,7 +6,7 @@
 <script type="text/javascript">
     var markdown = document.getElementById("markdown").innerText
     document.getElementById("content").innerText = markdown
-    document.getElementById("content").innerHTML = marked(markdown)
+    document.getElementById("content").innerHTML = DOMPurify.sanitize(marked(markdown))
     window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('content')]);
 </script>
 {% endblock %}

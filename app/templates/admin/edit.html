@@ -1,7 +1,11 @@
 {% extends "/admin/base.html" %}
 
 {% block article %}
-    <form role="form">
+    {%if article_id == None%}
+    <form role="form" method="POST" action="/admin/article/create">
+    {% else %}
+    <form role="form" method="POST" action="/admin/article/modify?article_id={{article_id}}">
+    {% endif %}
         <div class="form-group">
             <label for="title">文章标题</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="Article Title">
@@ -13,7 +17,7 @@
 
 
         <div class="form-group" id="edit-div">
-            <textarea id="edit-area" class="form-control" rows="25" placeholder="采用Markdown编辑文章"></textarea>
+            <textarea id="edit-area" name="content" class="form-control" rows="25" placeholder="采用Markdown编辑文章"></textarea>
             <p class="help-block">
                 Markdown使用
                 <a href="/help/markdown">帮助</a>

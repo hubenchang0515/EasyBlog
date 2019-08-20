@@ -3,6 +3,8 @@ from .models import *
 from flask import request, redirect, url_for, session
 from sqlalchemy.exc import IntegrityError
 import hashlib
+from datetime import datetime
+import pytz
 
 ###################################################################
 # 辅助函数
@@ -13,6 +15,11 @@ def encrypt(salt, data) :
     encryptor = hashlib.sha256(salt.encode("utf-8"))
     encryptor.update(data.encode("utf-8"))
     return encryptor.hexdigest()
+
+# 当前UTC时间
+def utc_now() :
+    utc_tz = pytz.timezone('UTC')
+    return datetime.now(tz=utc_tz)
 
 # 站点标题
 def site_title() :
@@ -75,6 +82,20 @@ def login() :
             session['username'] = username
             session['password'] = password
             return redirect(url_for('/admin/'))
+
+# 新建文章
+def article_create() :
+    if is_login() :
+        title = request.form.get('title')
+        content = request.form.get('content')
+        user_id = session.get('id')
+        article = Article(title=title, content=content, date=utc_now(), 
+                            reading=0, user_id=user_id, category_id=Category.id_of_other)
+        db.session.add(article)
+        db.session.commit()
+        return redirect(url_for('/admin/'))
+    else :
+        return redirect(url_for('/admin/login'))
 
 # 编辑文章
 def edit() :

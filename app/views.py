@@ -31,8 +31,8 @@ def render_login(site_title, message=None) :
     return render_template('/admin/login.html', site_title=site_title, message=message)
 
 # 编辑文章
-def render_edit(site_title) :
-    return render_template('/admin/edit.html', site_title=site_title)
+def render_edit(site_title, article_id=None) :
+    return render_template('/admin/edit.html', site_title=site_title, article_id=article_id)
 
 
 ###################################################################
