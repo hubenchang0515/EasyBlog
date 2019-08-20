@@ -1,6 +1,12 @@
 # EasyBlog
 博客程序，原型探索
 
+### 引用的库
+* Markdown渲染([Marked](https://github.com/markedjs/marked))
+* 代码块语法高亮([Prism](https://github.com/PrismJS/prism))
+* HTML标签过滤([DOMPurify](https://github.com/cure53/DOMPurify))
+* LaTeX公式渲染([MathJax](https://github.com/mathjax/MathJax))
+
 # Markdown使用帮助
 Markdown是一种轻量级标记语言，它十分易于编辑和阅读，并且可以轻而易举地渲染成HTML。  
 

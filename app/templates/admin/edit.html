@@ -53,9 +53,9 @@
         let preview_div = document.getElementById("preview-div")
         let edit_area = document.getElementById("edit-area")
         
-        preview_div.innerHTML = marked(edit_area.value)
+        preview_div.innerHTML = DOMPurify.sanitize(marked(edit_area.value))
         Prism.highlightAll();
-        window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, preview_div]);
+        window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, preview_div])
 
         preview_div.style.display = "block";
         edit_div.style.display = "none"
