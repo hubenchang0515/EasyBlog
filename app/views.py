@@ -22,13 +22,17 @@ def render_article_list(site_title, article_list=None) :
 # 管理页面
 ###################################################################
 
-#欢迎
+# 欢迎
 def render_admin_index(site_title) :
     return render_template('/admin/index.html', site_title=site_title)
 
-#登录
+# 登录
 def render_login(site_title, message=None) :
     return render_template('/admin/login.html', site_title=site_title, message=message)
+
+# 编辑文章
+def render_edit(site_title) :
+    return render_template('/admin/edit.html', site_title=site_title)
 
 
 ###################################################################

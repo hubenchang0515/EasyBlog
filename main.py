@@ -18,6 +18,7 @@ routes = [
     ###################################################################
     ['/admin/',             app.controllers.admin_index],
     ['/admin/login',        app.controllers.login],
+    ['/admin/edit',         app.controllers.edit],
     
 ]
 

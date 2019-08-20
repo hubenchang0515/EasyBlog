@@ -43,8 +43,14 @@
 }
 
 /* 表格显示边框 */
-.surface td, .surface th{
+.surface td{
   border: solid #000 1px;
+}
+
+/* 表头居中 */
+.surface th{
+  border: solid #000 1px;
+  text-align: center;
 }
 
 /* 文章标题不折行 */

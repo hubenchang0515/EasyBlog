@@ -76,6 +76,12 @@ def login() :
             session['password'] = password
             return redirect(url_for('/admin/'))
 
+# 编辑文章
+def edit() :
+    if is_login() :
+        return views.render_edit(site_title())
+    else :
+        return redirect(url_for('/admin/login'))
 
 ###################################################################
 # ! 以下为初始化页面  
