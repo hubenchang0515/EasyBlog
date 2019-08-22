@@ -6,12 +6,12 @@ from flask_bootstrap import Bootstrap
 ###################################################################
 
 # 渲染文章内容页面
-def render_article(site_title, article=None) :
-    return render_template('index.html',site_title=site_title, article=article)
+def render_article(site_title, typelist, article=None) :
+    return render_template('index.html',site_title=site_title, typelist=typelist, article=article)
 
 # 渲染文章列表页面
-def render_article_list(site_title, article_list=None) :
-    return render_template('article_list.html', site_title=site_title, article_list=article_list)
+def render_article_list(site_title, typelist, article_list=None) :
+    return render_template('article_list.html', site_title=site_title, typelist=typelist, article_list=article_list)
 
 
 

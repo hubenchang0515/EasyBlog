@@ -25,16 +25,22 @@
         </div>
     {% else %}
         <h1>{{ article.title }}</h1>
-        <p>阅读({{ article.reading }}) {{ moment(article.date).format('LLL') }}</p>
+        <p>
+            <a class="label label-info" href="/article_list?category={{article.category.id}}">{{article.category.name}}</a>
+            阅读({{ article.reading }}) {{ moment(article.date).format('LLL') }} 
+        </p>
         <p id="content" class="surface"></p>
+        {% if article.content != None %}
+        <article class="hide"><pre id="markdown">{{ article.content }}</pre></article>
+        {% endif %}
     {% endif %}
 </article>
 {% endblock %}
 
 {% block aside %}
-<h4>Aside</h4>
+    <h4>文章分类</h4>
+    {% for type in typelist %}
+    <a class="label label-info" href="/article_list?category={{type.id}}">{{type.name}}</a>
+    {% endfor %}
 {% endblock %}
 
-{% block seo %}   {% if article.content != None %}
-<article class="hide"><pre id="markdown">{{ article.content }}</pre></article>
-{% endif %}   {% endblock%}

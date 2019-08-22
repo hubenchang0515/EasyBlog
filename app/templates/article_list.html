@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "index.html" %}
 
 {% block article %}
 <article>
@@ -17,7 +17,9 @@
                 </div>
                 
                 <div class="panel-footer">
-                    阅读({{ article.reading }}) {{ moment(article.date).format('LLL') }} 
+                    <a class="label label-info" href="/article_list?category={{article.category.id}}">{{article.category.name}}</a>
+                    阅读({{ article.reading }}) 
+                    {{ moment(article.date).format('LLL') }} 
                 </div>
             </div>
         {% endfor %}
@@ -41,8 +43,4 @@
         {% endif %}
     </ul>
 </article>
-{% endblock %}
-
-{% block aside %}
-<h4>Aside</h4>
 {% endblock %}

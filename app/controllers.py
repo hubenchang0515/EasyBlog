@@ -35,14 +35,16 @@ def site_title() :
 
 # 首页
 def index() :
+    typelist = Category.query.all()
     article = Article.query.order_by(Article.date.desc()).first()
-    return views.render_article(site_title(), article)
+    return views.render_article(site_title(), typelist, article)
 
 # 文章列表
 def article_list() :
     page = request.args.get('page', 1, type=int)
+    typelist = Category.query.all()
     pagination = Article.query.order_by(Article.date.desc()).paginate(page=page, per_page=10)
-    return views.render_article_list(site_title(), pagination)
+    return views.render_article_list(site_title(), typelist, pagination)
 
 # 检测session，判断是否登录
 def is_login() :
