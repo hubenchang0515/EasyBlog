@@ -18,14 +18,15 @@
                 {% endfor %}
             </select>
         </div>
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs" role="tablist" style="border-bottom: 0;">
             <li id="edit-tab" class="active"><a href="#" onclick="edit()">编辑</a></li>
             <li id="preview-tab"> <a href="#" onclick="preview()">预览</a></li>
         </ul>
 
 
-        <div class="form-group" id="edit-div">
-            <textarea id="edit-area" name="content" class="form-control" rows="25" placeholder="采用Markdown编辑文章"></textarea>
+        <div class="form-group" id="edit-div" style="border: 0;">
+            <textarea id="edit-area" name="content" class="form-control" rows="25" placeholder="采用Markdown编辑文章"
+            style="border-top-left-radius: 0; border-color: #ddd;" onkeydown="tab(this)"></textarea>
             <p class="help-block">
                 Markdown使用
                 <a href="/help/markdown">帮助</a>
@@ -33,7 +34,7 @@
             </p>
         </div>
 
-        <div id="preview-div" class="surface" style="display: none; width: 100%;"></div>
+        <div id="preview-div" class="surface" style="display: none; width: 100%; border-color: #ddd;"></div>
         <button type="submit" class="btn btn-default">提交</button>
     </form>
 
@@ -72,5 +73,7 @@
         preview_div.style.display = "block";
         edit_div.style.display = "none"
     }
+
+    
 </script>
 {% endblock %}
