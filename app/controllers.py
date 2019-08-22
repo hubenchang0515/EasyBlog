@@ -100,7 +100,8 @@ def article_create() :
 # 编辑文章
 def edit() :
     if is_login() :
-        return views.render_edit(site_title())
+        typelist = Category.query.all()
+        return views.render_edit(site_title(), typelist)
     else :
         return redirect(url_for('/admin/login'))
 
