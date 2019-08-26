@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+
+{% block article %}
+    {% if article_list == None %}
+        <h1>没有文章</h1>
+    {% else %}
+        {% for article in article_list.items %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a class="article-title" title="{{article.title}}" href="">
+                            <span class="glyphicon glyphicon-flag"></span>
+                            {{article.title}}
+                        </a>
+                    </h3>
+                </div>
+                
+                <div class="panel-footer">
+                    <a class="label label-info" href="/article_list?category={{article.category.id}}">{{article.category.name}}</a>
+                    阅读({{ article.reading }}) 
+                    {{ moment(article.date).format('LLL') }} 
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <ul class="pager">
+        {% if article_list.prev_num != None %}
+            <li class="previous">
+                <a href="?page={{article_list.prev_num}}">
+                    上一页
+                </a>
+            </li>
+        {% endif %}
+
+        {% if article_list.next_num != None %}
+            <li class="next">
+                <a href="?page={{article_list.next_num}}">
+                    下一页
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}

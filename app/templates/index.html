@@ -5,7 +5,6 @@
 
 <script type="text/javascript">
     var markdown = document.getElementById("markdown").innerText
-    document.getElementById("content").innerText = markdown
     document.getElementById("content").innerHTML = DOMPurify.sanitize(marked(markdown))
     window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('content')]);
 </script>
@@ -29,10 +28,12 @@
             <a class="label label-info" href="/article_list?category={{article.category.id}}">{{article.category.name}}</a>
             阅读({{ article.reading }}) {{ moment(article.date).format('LLL') }} 
         </p>
-        <p id="content" class="surface"></p>
-        {% if article.content != None %}
-        <article class="hide"><pre id="markdown">{{ article.content }}</pre></article>
-        {% endif %}
+        <div id="content" class="surface">
+            {% if article.content != None %}
+            <pre id="markdown" style="border: none; white-space: pre-wrap; word-wrap: break-word; word-break: break-all;">{{ article.content }}</pre>
+            {% endif %}
+        </div>
+        
     {% endif %}
 </article>
 {% endblock %}

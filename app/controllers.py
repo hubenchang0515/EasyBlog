@@ -131,6 +131,7 @@ def init_result() :
     else :
         admin.username = username
         admin.password = password
+        admin.title = title
         admin.email = email
 
     try:

@@ -10,7 +10,7 @@ routes = [
     # 普通页面
     ###################################################################
     ['/',                   app.controllers.index],
-    ['/article_list',       app.controllers.article_list],
+    ['/article/list',       app.controllers.article_list],
 
 
     ###################################################################
@@ -18,8 +18,9 @@ routes = [
     ###################################################################
     ['/admin/',                 app.controllers.admin_index],
     ['/admin/login',            app.controllers.login],
-    ['/admin/edit',             app.controllers.edit],
+    ['/admin/article/edit',     app.controllers.edit],
     ['/admin/article/create',   app.controllers.article_create],
+    #['/admin/article/manage',   app.controllers.article_manage],
     
 ]
 

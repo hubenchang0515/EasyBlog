@@ -6,9 +6,6 @@ code {
   border-radius: 4px;
 }
 
-pre {
-  background-color: #1E1E1E;
-}
 
 pre code{
   color: white;

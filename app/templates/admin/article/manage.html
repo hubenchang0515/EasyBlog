@@ -1,15 +1,14 @@
-{% extends "index.html" %}
+{% extends "/admin/base.html" %}
 
 {% block article %}
-<article>
-    {% if article_list == None %}
+{% if article_list == None %}
         <h1>没有文章</h1>
     {% else %}
         {% for article in article_list.items %}
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <a class="article-title" title="{{article.title}}" href="">
+                        <a class="article-title" title="{{article.title}}" href="/admin/edit?id={article.id}">
                             <span class="glyphicon glyphicon-flag"></span>
                             {{article.title}}
                         </a>
@@ -42,5 +41,4 @@
             </li>
         {% endif %}
     </ul>
-</article>
 {% endblock %}
