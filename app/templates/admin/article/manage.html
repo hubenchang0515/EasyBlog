@@ -8,7 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <a class="article-title" title="{{article.title}}" href="/admin/edit?id={article.id}">
+                        <a class="article-title" title="{{article.title}}" href="/article/reading?id={{article.id}}">
                             <span class="glyphicon glyphicon-flag"></span>
                             {{article.title}}
                         </a>
@@ -16,9 +16,8 @@
                 </div>
                 
                 <div class="panel-footer">
-                    <a class="label label-info" href="/article_list?category={{article.category.id}}">{{article.category.name}}</a>
-                    阅读({{ article.reading }}) 
-                    {{ moment(article.date).format('LLL') }} 
+                    <a class="btn btn-default" href="/admin/article/edit?id={{article.id}}">编辑</a>
+                    <a class="btn btn-danger" href="/admin/article/delete?id={{article.id}}">删除</a>
                 </div>
             </div>
         {% endfor %}

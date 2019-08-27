@@ -20,7 +20,9 @@ routes = [
     ['/admin/login',            app.controllers.login],
     ['/admin/article/edit',     app.controllers.edit],
     ['/admin/article/create',   app.controllers.article_create],
-    #['/admin/article/manage',   app.controllers.article_manage],
+    ['/admin/article/manage',   app.controllers.article_manage],
+    ['/admin/article/modify',   app.controllers.article_modify],
+    ['/admin/article/delete',   app.controllers.article_delete],
     
 ]
 

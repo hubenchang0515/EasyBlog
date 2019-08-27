@@ -31,9 +31,12 @@ def render_login(site_title, message=None) :
     return render_template('/admin/login.html', site_title=site_title, message=message)
 
 # 编辑文章
-def render_edit(site_title, typelist, article_id=None) :
-    return render_template('/admin/article/edit.html', site_title=site_title, typelist=typelist, article_id=article_id)
+def render_edit(site_title, typelist, article=None) :
+    return render_template('/admin/article/edit.html', site_title=site_title, typelist=typelist, article=article)
 
+# 管理文章
+def render_article_manage(site_title, article_list=None) :
+    return render_template('/admin/article/manage.html', site_title=site_title, article_list=article_list)
 
 ###################################################################
 # ! 以下为初始化页面  

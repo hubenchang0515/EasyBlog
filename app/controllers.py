@@ -29,6 +29,16 @@ def site_title() :
     else :
         return user.title
 
+# 检测session，判断是否登录
+def is_login() :
+    username = session.get('username')
+    password = session.get('password')
+    user = User.query.filter_by(id=User.id_of_admin, username=username, password=password).first()
+    if user == None :
+        return False
+    else :
+        return True
+
 ###################################################################
 # 普通页面
 ###################################################################
@@ -45,16 +55,6 @@ def article_list() :
     typelist = Category.query.all()
     pagination = Article.query.order_by(Article.date.desc()).paginate(page=page, per_page=10)
     return views.render_article_list(site_title(), typelist, pagination)
-
-# 检测session，判断是否登录
-def is_login() :
-    username = session.get('username')
-    password = session.get('password')
-    user = User.query.filter_by(id=User.id_of_admin, username=username, password=password).first()
-    if user == None :
-        return False
-    else :
-        return True
 
 
 ###################################################################
@@ -85,25 +85,67 @@ def login() :
             session['password'] = password
             return redirect(url_for('/admin/'))
 
+# 编辑文章
+def edit() :
+    if is_login() :
+        typelist = Category.query.all()
+        article_id = request.args.get('id', None, type=int)
+        article = Article.query.filter_by(id=article_id).first()
+        return views.render_edit(site_title(), typelist, article)
+    else :
+        return redirect(url_for('/admin/login'))
+
+# 管理文章
+def article_manage() :
+    if is_login() :
+        page = request.args.get('page', 1, type=int)
+        article_list = Article.query.order_by(Article.date.desc()).paginate(page=page, per_page=10)
+        return views.render_article_manage(site_title(), article_list)
+    else :
+        return redirect(url_for('/admin/login'))
+    
+
 # 新建文章
 def article_create() :
     if is_login() :
         title = request.form.get('title')
         content = request.form.get('content')
+        category_id = request.form.get('type')
         user_id = session.get('id')
         article = Article(title=title, content=content, date=utc_now(), 
-                            reading=0, user_id=user_id, category_id=Category.id_of_other)
+                            reading=0, user_id=user_id, category_id=category_id)
         db.session.add(article)
         db.session.commit()
         return redirect(url_for('/admin/'))
     else :
         return redirect(url_for('/admin/login'))
 
-# 编辑文章
-def edit() :
+#修改文章
+def article_modify() :
     if is_login() :
-        typelist = Category.query.all()
-        return views.render_edit(site_title(), typelist)
+        article_id = request.args.get('id')
+        user_id = session.get('id')
+        article = Article.query.filter_by(id=article_id, user_id=user_id).first()
+
+        article.title = request.form.get('title')
+        article.content = request.form.get('content')
+        article.category_id = request.form.get('type')
+        
+        db.session.add(article)
+        db.session.commit()
+        return redirect(url_for('/admin/'))
+    else :
+        return redirect(url_for('/admin/login'))
+
+#删除文章
+def article_delete() :
+    if is_login() :
+        article_id = request.args.get('id')
+        article = Article.query.filter_by(id=article_id).first()
+        if article != None :
+            db.session.delete(article)
+            db.session.commit()
+        return redirect(url_for('/admin/'))
     else :
         return redirect(url_for('/admin/login'))
 
