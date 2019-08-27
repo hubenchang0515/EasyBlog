@@ -34,4 +34,4 @@ if __name__ == "__main__":
     for route in routes :
         app.add_url_rule(route[0], endpoint=route[0], view_func=route[1], methods=['GET','POST'])
 
-    app.run(port=80, debug=True)
+    app.run(host="0.0.0.0", port=80, debug=True)
