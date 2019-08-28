@@ -6,12 +6,12 @@ from flask_bootstrap import Bootstrap
 ###################################################################
 
 # 渲染文章内容页面
-def render_article(site_title, typelist, article=None) :
-    return render_template('index.html',site_title=site_title, typelist=typelist, article=article)
+def render_article(site_title, category_list, recent_articles, article=None) :
+    return render_template('index.html',site_title=site_title, category_list=category_list, recent_articles=recent_articles, article=article)
 
 # 渲染文章列表页面
-def render_article_list(site_title, typelist, article_list=None) :
-    return render_template('/article/list.html', site_title=site_title, typelist=typelist, article_list=article_list)
+def render_article_list(site_title, category_list, recent_articles, article_list=None) :
+    return render_template('/article/list.html', site_title=site_title, category_list=category_list, recent_articles=recent_articles, article_list=article_list)
 
 
 
@@ -31,8 +31,8 @@ def render_login(site_title, message=None) :
     return render_template('/admin/login.html', site_title=site_title, message=message)
 
 # 编辑文章
-def render_edit(site_title, typelist, article=None) :
-    return render_template('/admin/article/edit.html', site_title=site_title, typelist=typelist, article=article)
+def render_edit(site_title, category_list, article=None) :
+    return render_template('/admin/article/edit.html', site_title=site_title, category_list=category_list, article=article)
 
 # 管理文章
 def render_article_manage(site_title, article_list=None) :

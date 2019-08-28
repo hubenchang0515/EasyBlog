@@ -17,7 +17,7 @@
         <div class="form-group">
         <label for="name">分类</label>
             <select class="form-control" name="type">
-                {% for type in typelist %}
+                {% for type in category_list %}
                     {% if article != None and article.category_id == type.id%}
                         <option value="{{type.id}}" selected="selected">{{type.name}}</option>
                     {% else %}

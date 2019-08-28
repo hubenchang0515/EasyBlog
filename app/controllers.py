@@ -45,16 +45,18 @@ def is_login() :
 
 # 首页
 def index() :
-    typelist = Category.query.all()
+    category_list = Category.query.all()
     article = Article.query.order_by(Article.date.desc()).first()
-    return views.render_article(site_title(), typelist, article)
+    recent_articles =Article.query.order_by(Article.date.desc()).limit(20)
+    return views.render_article(site_title(), category_list, recent_articles, article)
 
 # 文章列表
 def article_list() :
     page = request.args.get('page', 1, type=int)
-    typelist = Category.query.all()
+    category_list = Category.query.all()
     pagination = Article.query.order_by(Article.date.desc()).paginate(page=page, per_page=10)
-    return views.render_article_list(site_title(), typelist, pagination)
+    recent_articles =Article.query.order_by(Article.date.desc()).limit(20)
+    return views.render_article_list(site_title(), category_list, recent_articles, pagination)
 
 
 ###################################################################
@@ -88,10 +90,10 @@ def login() :
 # 编辑文章
 def edit() :
     if is_login() :
-        typelist = Category.query.all()
+        category_list = Category.query.all()
         article_id = request.args.get('id', None, type=int)
         article = Article.query.filter_by(id=article_id).first()
-        return views.render_edit(site_title(), typelist, article)
+        return views.render_edit(site_title(), category_list, article)
     else :
         return redirect(url_for('/admin/login'))
 

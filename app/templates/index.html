@@ -23,9 +23,9 @@
             </div>
         </div>
     {% else %}
-        <h1>{{ article.title }}</h1>
+        <h1 class="article-title" title="{{article.title}}">{{ article.title }}</h1>
         <p>
-            <a class="label label-info" href="/article_list?category={{article.category.id}}">{{article.category.name}}</a>
+            <a class="label label-info" href="/article/list?category={{article.category.id}}">{{article.category.name}}</a>
             阅读({{ article.reading }}) {{ moment(article.date).format('LLL') }} 
         </p>
         <div id="content" class="surface">
@@ -39,9 +39,17 @@
 {% endblock %}
 
 {% block aside %}
-    <h4>文章分类</h4>
-    {% for type in typelist %}
-    <a class="label label-info" href="/article_list?category={{type.id}}">{{type.name}}</a>
+    <div style="margin-bottom: 50px;">
+        <h4>文章分类</h4>
+        {% for type in category_list %}
+        <a class="label label-info" href="/article_list?category={{type.id}}">{{type.name}}</a>
+        {% endfor %}
+    </div>
+
+    <h4>近期文章</h4>
+    {% for article in recent_articles %}
+    <a href="/article/reading?id={{article.id}}" title="{{article.title}}" class="article-title" >{{ article.title }}</a>
+        
     {% endfor %}
 {% endblock %}
 
