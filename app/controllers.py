@@ -63,9 +63,11 @@ def article_reading() :
 
 # 文章列表
 def article_list() :
+    category_list = Category.query.all()
+    recent_articles =Article.query.order_by(Article.date.desc()).limit(20)
+
     page = request.args.get('page', 1, type=int)
     category_id = request.args.get('category', None, type=int) 
-    category_list = Category.query.all()
     category = Category.query.filter_by(id=category_id).first()
     if category_id == None :
         pagination = Article.query.order_by(Article.date.desc()).paginate(page=page, per_page=10)
@@ -75,10 +77,20 @@ def article_list() :
         if category != None :
             pagination.category_name = category.name
     
-    recent_articles =Article.query.order_by(Article.date.desc()).limit(20)
     
     return views.render_article_list(site_title(), category_list, recent_articles, pagination)
 
+
+# 留言页
+def message() :
+    category_list = Category.query.all()
+    recent_articles =Article.query.order_by(Article.date.desc()).limit(20)
+
+    page = request.args.get('page', 1, type=int)
+    pagination = Message.query.order_by(Message.date.desc()).paginate(page=page, per_page=20)
+
+
+    return views.render_message(site_title(), category_list, recent_articles, pagination)
 
 ###################################################################
 # 管理页面

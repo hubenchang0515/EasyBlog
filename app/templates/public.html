@@ -2,12 +2,6 @@
 
 {% block scripts %}
 {{ super() }}
-
-<script type="text/javascript">
-    var markdown = document.getElementById("markdown").innerText
-    document.getElementById("content").innerHTML = DOMPurify.sanitize(marked(markdown))
-    window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('content')]);
-</script>
 {% endblock %}
 
 {% block article %}

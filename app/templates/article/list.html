@@ -52,7 +52,7 @@
                 {% if article_list.category_id != None %}
                 <a href="?{{article_list.category_id}}&page={{article_list.next_num}}">
                 {% else %}
-                <a href="?page={{article_list.prev_num}}">
+                <a href="?page={{article_list.next_num}}">
                 {% endif %}
                     下一页
                 </a>

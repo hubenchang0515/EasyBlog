@@ -12,6 +12,8 @@ routes = [
     ['/',                   app.controllers.index],
     ['/article/list',       app.controllers.article_list],
     ['/article/reading',    app.controllers.article_reading],
+    ['/message',            app.controllers.message],
+
 
 
     ###################################################################
