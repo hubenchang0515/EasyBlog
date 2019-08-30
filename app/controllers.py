@@ -46,21 +46,34 @@ def is_login() :
 # 首页
 def index() :
     category_list = Category.query.all()
-    article = Article.query.order_by(Article.date.desc()).first()
     recent_articles =Article.query.order_by(Article.date.desc()).limit(20)
-    return views.render_article(site_title(), category_list, recent_articles, article)
+    
+    article = Article.query.order_by(Article.date.desc()).first()
+    
+    return views.render_index(site_title(), category_list, recent_articles, article)
+
+# 文章内容
+def article_reading() :
+    category_list = Category.query.all()
+    recent_articles =Article.query.order_by(Article.date.desc()).limit(20)
+
+    article_id = request.args.get('id', 1, type=int)
+    article = Article.query.filter_by(id=article_id).first()
+    return views.render_article_reading(site_title(), category_list, recent_articles, article)
 
 # 文章列表
 def article_list() :
     page = request.args.get('page', 1, type=int)
     category_id = request.args.get('category', None, type=int) 
     category_list = Category.query.all()
+    category = Category.query.filter_by(id=category_id).first()
     if category_id == None :
         pagination = Article.query.order_by(Article.date.desc()).paginate(page=page, per_page=10)
     else :
         pagination = Article.query.filter_by(category_id=category_id).order_by(Article.date.desc()).paginate(page=page, per_page=10)
         pagination.category_id = category_id
-        pagination.category_name = Category.query.filter_by(id=category_id).first().name
+        if category != None :
+            pagination.category_name = category.name
     
     recent_articles =Article.query.order_by(Article.date.desc()).limit(20)
     

@@ -1,0 +1,40 @@
+{% extends "public.html" %}
+
+{% block scripts %}
+{{ super() }}
+
+<script type="text/javascript">
+    var markdown = document.getElementById("markdown").innerText
+    document.getElementById("content").innerHTML = DOMPurify.sanitize(marked(markdown))
+    window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('content')]);
+</script>
+{% endblock %}
+
+{% block article %}
+<article>
+    {% if article == None %}
+        <div class="panel panel-warning" style="max-width:600px; margin:auto;">
+            <div class="panel-heading">
+                <h3 class="panel-title">错误</h3>
+            </div>
+        
+            <div class="panel-body">
+                当前文章不存在。
+            </div>
+        </div>
+    {% else %}
+        <h1 class="article-title" title="{{article.title}}">{{ article.title }}</h1>
+        <p>
+            <a class="label label-info" href="/article/list?category={{article.category.id}}">{{article.category.name}}</a>
+            阅读({{ article.reading }}) {{ moment(article.date).format('LLL') }} 
+        </p>
+        <div id="content" class="surface">
+            {% if article.content != None %}
+            <pre id="markdown" style="border: none; white-space: pre-wrap; word-wrap: break-word; word-break: break-all;">{{ article.content }}</pre>
+            {% endif %}
+        </div>
+        
+    {% endif %}
+</article>
+{% endblock %}
+

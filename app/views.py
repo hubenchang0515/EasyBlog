@@ -6,8 +6,12 @@ from flask_bootstrap import Bootstrap
 ###################################################################
 
 # 渲染文章内容页面
-def render_article(site_title, category_list, recent_articles, article=None) :
-    return render_template('index.html',site_title=site_title, category_list=category_list, recent_articles=recent_articles, article=article)
+def render_index(site_title, category_list, recent_articles, article=None) :
+    return render_template('public.html',site_title=site_title, category_list=category_list, recent_articles=recent_articles, article=article)
+
+def render_article_reading(site_title, category_list, recent_articles, article=None) :
+    return render_template('/article/reading.html',site_title=site_title, category_list=category_list, recent_articles=recent_articles, article=article)
+
 
 # 渲染文章列表页面
 def render_article_list(site_title, category_list, recent_articles, article_list=None) :
