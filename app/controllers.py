@@ -241,22 +241,14 @@ def message_manage() :
 
 # 新增留言
 def message_create() :
-    prev_message = session.get('prev_message')
-    now = datetime.now()
+    name = request.form.get('name', '匿名', int)
+    email = request.form.get('email', None, int)
+    content = request.form.get('content')
+    msg = Message(name=name, email=email, content=content, date=utc_now())
+    db.session.add(msg)
+    db.session.commit()
 
-    if prev_message != None and now < prev_message + timedelta(minutes=5) :
-        return views.redirect(url_for('/message'), "提交留言需要间隔5分钟。")
-    else :
-        session['prev_message'] = now
-        
-        name = request.form.get('name', '匿名', int)
-        email = request.form.get('email', None, int)
-        content = request.form.get('content')
-        msg = Message(name=name, email=email, content=content, date=utc_now())
-        db.session.add(msg)
-        db.session.commit()
-
-        return views.redirect(url_for('/message'))
+    return views.redirect(url_for('/message'))
     
 
 ###################################################################
