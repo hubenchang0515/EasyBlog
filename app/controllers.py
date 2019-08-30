@@ -53,9 +53,17 @@ def index() :
 # 文章列表
 def article_list() :
     page = request.args.get('page', 1, type=int)
+    category_id = request.args.get('category', None, type=int) 
     category_list = Category.query.all()
-    pagination = Article.query.order_by(Article.date.desc()).paginate(page=page, per_page=10)
+    if category_id == None :
+        pagination = Article.query.order_by(Article.date.desc()).paginate(page=page, per_page=10)
+    else :
+        pagination = Article.query.filter_by(category_id=category_id).order_by(Article.date.desc()).paginate(page=page, per_page=10)
+        pagination.category_id = category_id
+        pagination.category_name = Category.query.filter_by(id=category_id).first().name
+    
     recent_articles =Article.query.order_by(Article.date.desc()).limit(20)
+    
     return views.render_article_list(site_title(), category_list, recent_articles, pagination)
 
 

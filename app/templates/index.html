@@ -19,7 +19,15 @@
             </div>
         
             <div class="panel-body">
-                当前没有文章
+                <div class="panel panel-warning" style="max-width:600px; margin:auto;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">没有文章</h3>
+                    </div>
+                
+                    <div class="panel-body">
+                        当前站点暂时没有文章。
+                    </div>
+                </div>
             </div>
         </div>
     {% else %}
@@ -42,14 +50,15 @@
     <div style="margin-bottom: 50px;">
         <h4>文章分类</h4>
         {% for type in category_list %}
-        <a class="label label-info" href="/article_list?category={{type.id}}">{{type.name}}</a>
+        <a class="label label-info" href="/article/list?category={{type.id}}">{{type.name}}</a>
         {% endfor %}
     </div>
 
     <h4>近期文章</h4>
     {% for article in recent_articles %}
-    <a href="/article/reading?id={{article.id}}" title="{{article.title}}" class="article-title" >{{ article.title }}</a>
-        
+    <p>
+        <a href="/article/reading?id={{article.id}}" title="{{article.title}}" class="article-title" >{{ article.title }}</a>
+    </p>
     {% endfor %}
 {% endblock %}
 

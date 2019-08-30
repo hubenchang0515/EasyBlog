@@ -1,14 +1,24 @@
 {% extends "index.html" %}
 
 {% block article %}
-    {% if article_list == None %}
-        <h1>没有文章</h1>
+    {% if article_list == None or article_list.items | length == 0 %}
+        <div class="panel panel-warning" style="max-width:600px; margin:auto;">
+            <div class="panel-heading">
+                <h3 class="panel-title">没有文章</h3>
+            </div>
+        
+            <div class="panel-body">
+                当前分类
+                <span class="label label-info">{{article_list.category_name}}</span>
+                暂时没有文章。
+            </div>
+        </div>
     {% else %}
         {% for article in article_list.items %}
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <a class="article-title" title="{{article.title}}" href="">
+                        <a class="article-title" title="{{article.title}}" href="/article/reading?id={{article.id}}">
                             <span class="glyphicon glyphicon-flag"></span>
                             {{article.title}}
                         </a>
@@ -16,7 +26,7 @@
                 </div>
                 
                 <div class="panel-footer">
-                    <a class="label label-info" href="/article_list?category={{article.category.id}}">{{article.category.name}}</a>
+                    <a class="label label-info" href="/article/list?category={{article.category.id}}">{{article.category.name}}</a>
                     阅读({{ article.reading }}) 
                     {{ moment(article.date).format('LLL') }} 
                 </div>
@@ -25,17 +35,25 @@
     {% endif %}
     
     <ul class="pager">
-        {% if article_list.prev_num != None %}
+        {% if article_list.has_prev %}
             <li class="previous">
+                {% if article_list.category_id != None %}
+                <a href="?{{article_list.category_id}}&page={{article_list.prev_num}}">
+                {% else %}
                 <a href="?page={{article_list.prev_num}}">
+                {% endif %}
                     上一页
                 </a>
             </li>
         {% endif %}
 
-        {% if article_list.next_num != None %}
+        {% if article_list.has_next %}
             <li class="next">
-                <a href="?page={{article_list.next_num}}">
+                {% if article_list.category_id != None %}
+                <a href="?{{article_list.category_id}}&page={{article_list.next_num}}">
+                {% else %}
+                <a href="?page={{article_list.prev_num}}">
+                {% endif %}
                     下一页
                 </a>
             </li>

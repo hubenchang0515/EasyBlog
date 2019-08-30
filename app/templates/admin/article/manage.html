@@ -24,7 +24,7 @@
     {% endif %}
     
     <ul class="pager">
-        {% if article_list.prev_num != None %}
+        {% if article_list.has_prev %}
             <li class="previous">
                 <a href="?page={{article_list.prev_num}}">
                     上一页
@@ -32,7 +32,7 @@
             </li>
         {% endif %}
 
-        {% if article_list.next_num != None %}
+        {% if article_list.has_next %}
             <li class="next">
                 <a href="?page={{article_list.next_num}}">
                     下一页
