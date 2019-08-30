@@ -10,7 +10,7 @@
         let message_content = message_contents[i]
         let pre = message_content.getElementsByTagName("pre")[0]
         message_content.innerHTML = DOMPurify.sanitize(marked(pre.innerText))
-        window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, message_content]);
+        //window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, message_content]);
     }
 </script>
 {% endblock %}
@@ -65,7 +65,8 @@
             </div>
 
             <div class="panel-footer">
-                    {{ moment(message.date).format('LLL') }} 
+                #{{message.id}}
+                {{ moment(message.date).format('LLL') }} 
             </div>
         </div>
     {% endfor %}
