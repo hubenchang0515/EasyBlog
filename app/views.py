@@ -42,6 +42,10 @@ def render_edit(site_title, category_list, article=None) :
 def render_article_manage(site_title, article_list=None) :
     return render_template('/admin/article/manage.html', site_title=site_title, article_list=article_list)
 
+# 管理分类
+def render_category_manage(site_title, category_list=None) :
+    return render_template('/admin/category/manage.html', site_title=site_title, category_list=category_list)
+
 ###################################################################
 # ! 以下为初始化页面  
 ###################################################################

@@ -172,6 +172,52 @@ def article_delete() :
     else :
         return redirect(url_for('/admin/login'))
 
+
+# 管理分类
+def category_manage() :
+    if is_login() :
+        category_list = Category.query.all()
+        return views.render_category_manage(site_title(), category_list)
+    else :
+        return redirect(url_for('/admin/login'))
+
+# 修改分类
+def category_modify() :
+    if is_login() :
+        category_id = request.form.get('category_id', None, int)
+        category_name = request.form.get('category_name')
+        category = Category.query.filter_by(id=category_id).first()
+
+        if category == None :
+            category = Category(id=category_id)
+            
+        category.name = category_name
+        db.session.add(category)
+        db.session.commit()
+
+        return redirect(url_for('/admin/category/manage'))
+    else :
+        return redirect(url_for('/admin/login'))
+
+# 删除分类
+def category_delete() :
+    if is_login() :
+        category_id = request.args.get('id', None, int)
+        category = Category.query.filter_by(id=category_id).first()
+        if category != None :
+            article_list = Article.query.filter_by(category_id=category_id).all()
+            for article in article_list :
+                article.category_id = Category.id_of_other
+                print(article.category_id)
+                db.session.add(article)
+                db.session.commit()
+            db.session.delete(category)
+            db.session.commit()
+
+        return redirect(url_for('/admin/category/manage'))
+    else :
+        return redirect(url_for('/admin/login'))
+
 ###################################################################
 # ! 以下为初始化页面  
 ###################################################################

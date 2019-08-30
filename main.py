@@ -24,6 +24,10 @@ routes = [
     ['/admin/article/manage',   app.controllers.article_manage],
     ['/admin/article/modify',   app.controllers.article_modify],
     ['/admin/article/delete',   app.controllers.article_delete],
+    ['/admin/category/manage',  app.controllers.category_manage],
+    ['/admin/category/modify',  app.controllers.category_modify],
+    ['/admin/category/delete',  app.controllers.category_delete],
+    
     
 ]
 

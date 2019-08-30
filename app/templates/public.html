@@ -13,21 +13,13 @@
 {% block article %}
 <article>
     {% if article == None %}
-        <div class="panel panel-info" >
+        <div class="panel panel-warning" style="max-width:600px; margin:auto;">
             <div class="panel-heading">
-                <h3 class="panel-title">Welcome</h3>
+                <h3 class="panel-title">没有文章</h3>
             </div>
         
             <div class="panel-body">
-                <div class="panel panel-warning" style="max-width:600px; margin:auto;">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">没有文章</h3>
-                    </div>
-                
-                    <div class="panel-body">
-                        当前站点暂时没有文章。
-                    </div>
-                </div>
+                当前站点暂时没有文章。
             </div>
         </div>
     {% else %}
