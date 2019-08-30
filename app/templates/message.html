@@ -16,6 +16,17 @@
 {% endblock %}
 
 {% block article %}
+    {% if error_message %}
+    <div class="panel panel-warning" style="max-width:600px; margin:auto;">
+        <div class="panel-heading">
+            <h3 class="panel-title">失败</h3>
+        </div>
+    
+        <div class="panel-body">
+            {{error_message}}
+        </div>
+    </div>
+    {% endif %}
     <form role="form" method="POST" action="/admin/message/create">
         <div class="form-group">
             <label for="name">你的名字</label>
@@ -34,7 +45,7 @@
 
 
         <div class="form-group" id="edit-div" style="border: 0;">
-            <textarea id="edit-area" name="content" class="form-control" rows="25" placeholder="采用Markdown编辑"
+            <textarea id="edit-area" name="content" class="form-control" rows="25" placeholder="采用Markdown编辑，冷却时间5分钟。"
             style="border-top-left-radius: 0; border-color: #ddd; height: 10em;" onkeydown="tab(this)"></textarea>
             <p class="help-block">
                 Markdown使用

@@ -1,0 +1,43 @@
+{% extends "/admin/base.html" %}
+
+{% block article %}
+<table class="table table-hover">
+    <caption>留言管理</caption>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>名字</th>
+            <th>时间</th>
+            <th>删除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for message in message_list.items %}
+        <tr>
+            <td>{{message.id}}</td>
+            <td>{{message.name}}</td>
+            <td>{{ moment(message.date).format('LLL') }} </td>
+            <td><a class="btn btn-danger btn-xs" href="/admin/message/delete?id={{message.id}}">删除</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<ul class="pager">
+        {% if message_list.has_prev %}
+            <li class="previous">
+                <a href="?page={{message_list.prev_num}}">
+                    上一页
+                </a>
+            </li>
+        {% endif %}
+
+        {% if message_list.has_next %}
+            <li class="next">
+                <a href="?page={{message_list.next_num}}">
+                    下一页
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}

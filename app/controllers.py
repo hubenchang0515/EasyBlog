@@ -3,7 +3,7 @@ from .models import *
 from flask import request, redirect, url_for, session
 from sqlalchemy.exc import IntegrityError
 import hashlib
-from datetime import datetime
+from datetime import datetime,timedelta
 import pytz
 
 ###################################################################
@@ -82,7 +82,7 @@ def article_list() :
 
 
 # 留言页
-def message() :
+def message(error_message=None) :
     category_list = Category.query.all()
     recent_articles =Article.query.order_by(Article.date.desc()).limit(20)
 
@@ -90,7 +90,7 @@ def message() :
     pagination = Message.query.order_by(Message.date.desc()).paginate(page=page, per_page=20)
 
 
-    return views.render_message(site_title(), category_list, recent_articles, pagination)
+    return views.render_message(site_title(), category_list, recent_articles, pagination, error_message)
 
 ###################################################################
 # 管理页面
@@ -188,7 +188,7 @@ def article_delete() :
 # 管理分类
 def category_manage() :
     if is_login() :
-        category_list = Category.query.all()
+        category_list = Category.query.order_by(Category.id.desc()).all()
         return views.render_category_manage(site_title(), category_list)
     else :
         return redirect(url_for('/admin/login'))
@@ -229,6 +229,35 @@ def category_delete() :
         return redirect(url_for('/admin/category/manage'))
     else :
         return redirect(url_for('/admin/login'))
+
+# 管理留言
+def message_manage() :
+    if is_login() :
+        page = request.args.get('page', 1, type=int)
+        message_list = Message.query.order_by(Message.date.desc()).paginate(page=page, per_page=30)
+        return views.render_message_manage(site_title(), message_list)
+    else :
+        return redirect(url_for('/admin/login'))
+
+# 新增留言
+def message_create() :
+    prev_message = session.get('prev_message')
+    now = datetime.now()
+
+    if prev_message != None and now < prev_message + timedelta(minutes=5) :
+        return message("提交留言需要间隔5分钟。")
+    else :
+        session['prev_message'] = now
+        
+        name = request.form.get('name', '匿名', int)
+        email = request.form.get('email', None, int)
+        content = request.form.get('content')
+        msg = Message(name=name, email=email, content=content, date=utc_now())
+        db.session.add(msg)
+        db.session.commit()
+
+        return redirect(url_for('/message'))
+    
 
 ###################################################################
 # ! 以下为初始化页面  

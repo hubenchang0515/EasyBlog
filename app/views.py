@@ -17,8 +17,8 @@ def render_article_list(site_title, category_list, recent_articles, article_list
     return render_template('/article/list.html', site_title=site_title, category_list=category_list, recent_articles=recent_articles, article_list=article_list)
 
 # 渲染留言页面
-def render_message(site_title, category_list, recent_articles, message_list=None) :
-    return render_template('/message.html', site_title=site_title, category_list=category_list, recent_articles=recent_articles, message_list=message_list)
+def render_message(site_title, category_list, recent_articles, message_list=None, error_message=None) :
+    return render_template('/message.html', site_title=site_title, category_list=category_list, recent_articles=recent_articles, message_list=message_list, error_message=error_message)
 
 
 
@@ -46,6 +46,10 @@ def render_article_manage(site_title, article_list=None) :
 # 管理分类
 def render_category_manage(site_title, category_list=None) :
     return render_template('/admin/category/manage.html', site_title=site_title, category_list=category_list)
+
+# 管理留言
+def render_message_manage(site_title, message_list=None) :
+    return render_template('/admin/message/manage.html', site_title=site_title, message_list=message_list)
 
 ###################################################################
 # ! 以下为初始化页面  
