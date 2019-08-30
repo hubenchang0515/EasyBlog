@@ -64,8 +64,11 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
+                    {% if message.email != None %}
                     <a class="article-title" title="{{message.name}}" href="mailto://{{message.email}}">
-                        <!-- <span class="glyphicon glyphicon-flag"></span> -->
+                    {% else %}
+                    <a class="article-title" title="{{message.name}}"></a>
+                    {% endif %}
                         {{message.name}}
                     </a>
                 </h3>

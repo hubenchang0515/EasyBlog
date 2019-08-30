@@ -1,6 +1,6 @@
 from . import views
 from .models import *
-from flask import request, redirect, url_for, session
+from flask import request, url_for, session
 from sqlalchemy.exc import IntegrityError
 import hashlib
 from datetime import datetime,timedelta
@@ -82,7 +82,7 @@ def article_list() :
 
 
 # 留言页
-def message(error_message=None) :
+def message() :
     category_list = Category.query.all()
     recent_articles =Article.query.order_by(Article.date.desc()).limit(20)
 
@@ -90,7 +90,7 @@ def message(error_message=None) :
     pagination = Message.query.order_by(Message.date.desc()).paginate(page=page, per_page=20)
 
 
-    return views.render_message(site_title(), category_list, recent_articles, pagination, error_message)
+    return views.render_message(site_title(), category_list, recent_articles, pagination)
 
 ###################################################################
 # 管理页面
@@ -101,7 +101,7 @@ def admin_index() :
     if is_login() :
         return views.render_admin_index(site_title())
     else :
-        return redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'))
 
 # 登录
 def login() :
@@ -118,7 +118,7 @@ def login() :
             session['id'] = user.id
             session['username'] = username
             session['password'] = password
-            return redirect(url_for('/admin/'))
+            return views.redirect(url_for('/admin/'))
 
 # 编辑文章
 def edit() :
@@ -128,7 +128,7 @@ def edit() :
         article = Article.query.filter_by(id=article_id).first()
         return views.render_edit(site_title(), category_list, article)
     else :
-        return redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'))
 
 # 管理文章
 def article_manage() :
@@ -137,7 +137,7 @@ def article_manage() :
         article_list = Article.query.order_by(Article.date.desc()).paginate(page=page, per_page=10)
         return views.render_article_manage(site_title(), article_list)
     else :
-        return redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'))
     
 
 # 新建文章
@@ -151,9 +151,9 @@ def article_create() :
                             reading=0, user_id=user_id, category_id=category_id)
         db.session.add(article)
         db.session.commit()
-        return redirect(url_for('/admin/'))
+        return views.redirect(url_for('/admin/'))
     else :
-        return redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'))
 
 #修改文章
 def article_modify() :
@@ -168,9 +168,9 @@ def article_modify() :
         
         db.session.add(article)
         db.session.commit()
-        return redirect(url_for('/admin/'))
+        return views.redirect(url_for('/admin/'))
     else :
-        return redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'))
 
 #删除文章
 def article_delete() :
@@ -180,9 +180,9 @@ def article_delete() :
         if article != None :
             db.session.delete(article)
             db.session.commit()
-        return redirect(url_for('/admin/'))
+        return views.redirect(url_for('/admin/'))
     else :
-        return redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'))
 
 
 # 管理分类
@@ -191,7 +191,7 @@ def category_manage() :
         category_list = Category.query.order_by(Category.id.desc()).all()
         return views.render_category_manage(site_title(), category_list)
     else :
-        return redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'))
 
 # 修改分类
 def category_modify() :
@@ -207,9 +207,9 @@ def category_modify() :
         db.session.add(category)
         db.session.commit()
 
-        return redirect(url_for('/admin/category/manage'))
+        return views.redirect(url_for('/admin/category/manage'))
     else :
-        return redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'))
 
 # 删除分类
 def category_delete() :
@@ -226,9 +226,9 @@ def category_delete() :
             db.session.delete(category)
             db.session.commit()
 
-        return redirect(url_for('/admin/category/manage'))
+        return views.redirect(url_for('/admin/category/manage'))
     else :
-        return redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'))
 
 # 管理留言
 def message_manage() :
@@ -237,7 +237,7 @@ def message_manage() :
         message_list = Message.query.order_by(Message.date.desc()).paginate(page=page, per_page=30)
         return views.render_message_manage(site_title(), message_list)
     else :
-        return redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'))
 
 # 新增留言
 def message_create() :
@@ -245,7 +245,7 @@ def message_create() :
     now = datetime.now()
 
     if prev_message != None and now < prev_message + timedelta(minutes=5) :
-        return message("提交留言需要间隔5分钟。")
+        return views.redirect(url_for('/message'), "提交留言需要间隔5分钟。")
     else :
         session['prev_message'] = now
         
@@ -256,7 +256,7 @@ def message_create() :
         db.session.add(msg)
         db.session.commit()
 
-        return redirect(url_for('/message'))
+        return views.redirect(url_for('/message'))
     
 
 ###################################################################

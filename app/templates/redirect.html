@@ -1,0 +1,10 @@
+<html>
+<head>
+    {% if alert != None %}
+    <script>alert("{{ alert }}");</script>
+    {% endif %}
+    <script>
+        window.location = "{{ url }}"
+    </script>
+</head>
+</html>
