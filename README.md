@@ -16,3 +16,12 @@ pip install -r requirements.txt
 3. 运行 `main.py` 登录 `80` 端口即可使用。
 
 > 程序当前设置为`DEBUG`模式，可以自行更改及配置`uWSGI`。
+
+## 预览
+![reading](https://github.com/hubenchang0515/resource/blob/master/easy-blog/reading.png?raw=true)
+
+![reading](https://github.com/hubenchang0515/resource/blob/master/easy-blog/edit.png?raw=true)
+
+![reading](https://github.com/hubenchang0515/resource/blob/master/easy-blog/message.png?raw=true)
+
+![reading](https://github.com/hubenchang0515/resource/blob/master/easy-blog/category-manage.png?raw=true)
