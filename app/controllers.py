@@ -318,9 +318,10 @@ def config() :
 def config_password() :
     if is_login() :
         id = session.get('id')
+        username = session.get('username')
         cfg = User.query.filter_by(id=id).first()
         if(cfg != None) :
-            cfg.password = request.form.get('password')
+            cfg.password = encrypt(username, request.form.get('password'))
             db.session.add(cfg)
             db.session.commit()
             return views.redirect(url_for('/admin/config'), "密码修改成功。")
@@ -358,6 +359,13 @@ def config_email() :
             return views.redirect(url_for('/admin/login'), "登录超时。")
     else :
         return views.redirect(url_for('/admin/login'), "请登录。")
+
+# 退出登录
+def logout() :
+    session.pop('id')
+    session.pop('username')
+    session.pop('password')
+    return views.redirect(url_for('/admin/login'), "已退出。")
 
 
 ###################################################################

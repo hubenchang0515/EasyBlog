@@ -44,6 +44,8 @@ routes = [
     ['/admin/config/password',  app.controllers.config_password], 
     ['/admin/config/title',     app.controllers.config_title], 
     ['/admin/config/email',     app.controllers.config_email], 
+
+    ['/admin/logout',           app.controllers.logout], 
     
 ]
 

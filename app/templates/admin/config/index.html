@@ -39,7 +39,7 @@
                 <td>
                     <input id="password" type="password" class="form-control" name="password" placeholder="Password"/>
                 </td>
-                <td><button type="submit" class="btn btn-danger" onclick="return check()">修改</button></td>
+                <td><button type="submit" class="btn btn-danger" onclick="return check_password()">修改</button></td>
             </tr>
         </form>
 
@@ -49,7 +49,7 @@
                 <td>
                     <input id="title" type="text" class="form-control" name="title" placeholder="Title" value="{{config.title}}"/>
                 </td>
-                <td><button type="submit" class="btn btn-danger" onclick="return check()">修改</button></td>
+                <td><button type="submit" class="btn btn-danger" onclick="return check_title()">修改</button></td>
             </tr>
         </form>
 
@@ -59,10 +59,42 @@
                 <td>
                     <input id="email" type="text" class="form-control" name="email" placeholder="E-Mail" value="{{config.email}}"/>
                 </td>
-                <td><button type="submit" class="btn btn-danger" onclick="return check()">修改</button></td>
+                <td><button type="submit" class="btn btn-danger">修改</button></td>
             </tr>
         </form>
     </tbody>
 </table>
+
+<script>
+
+function check_password()
+{
+    len = document.getElementById("password").value.length
+    if(len < 8 || len > 64)
+    {
+        alert("密码的长度应该在8~64个字符之间。")
+        return false
+    }
+    else
+    {
+        return true
+    }
+}
+
+function check_title()
+{
+    len = document.getElementById("title").value.length
+    if(len < 2 || len > 64)
+    {
+        alert("站点标题的长度应该在2~64个字符之间。")
+        return false
+    }
+    else
+    {
+        return true
+    }
+}
+
+</script>
 
 {% endblock %}
