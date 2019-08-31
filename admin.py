@@ -23,4 +23,4 @@ if __name__ == "__main__":
     def other_url(other) :
         return "<h1>请切换到 80 端口，并关闭 admin.py 进程。</h1>"
 
-    app.run(port=23646, debug=True)
+    app.run(host="0.0.0.0", port=23646, debug=True)
