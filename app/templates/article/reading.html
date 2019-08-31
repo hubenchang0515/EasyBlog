@@ -45,125 +45,125 @@
             {% endif %}
         </div>
         
+        {% block comment %}
+        <form role="form" method="POST" action="/admin/comment/create?article_id={{article.id}}">
+            <div class="form-group">
+                <label for="name">你的名字(非必填)</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name"/>
+            </div>
+
+            <div class="form-group">
+                <label for="email">你的邮箱(非必填)</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Your E-Mail"/>
+            </div>
+
+            <ul class="nav nav-tabs" role="tablist" style="border-bottom: 0;">
+                <li id="edit-tab" class="active"><a href="#__not_available" onclick="edit()">编辑</a></li>
+                <li id="preview-tab"> <a href="#__not_available" onclick="preview()">预览</a></li>
+            </ul>
+
+
+            <div class="form-group" id="edit-div" style="border: 0;">
+                <textarea id="edit-area" name="content" class="form-control" rows="25" placeholder="采用Markdown编辑。"
+                style="border-top-left-radius: 0; border-color: #ddd; height: 10em;" onkeydown="tab(this)"></textarea>
+                <p class="help-block">
+                    Markdown使用
+                    <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">帮助</a>
+                    。
+                </p>
+            </div>
+
+            <div id="preview-div" class="surface" style="display: none; width: 100%; border-color: #ddd;"></div>
+            <button type="submit" class="btn btn-default">提交</button>
+        </form>
+
+        <hr/>
+        {% if comment_list != None %}
+            {% for comment in comment_list.items %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            {% if comment.email != None and comment.email != '' %}
+                            <a class="article-title" title="{{comment.name}}" href="mailto://{{comment.email}}">
+                            {% else %}
+                            <a class="article-title" title="{{comment.name}}"></a>
+                            {% endif %}
+                                {{comment.name}}
+                            </a>
+                        </h3>
+                    </div>
+                    
+                    <div class="panel-body comment_content">
+                        <pre>{{comment.content}}</pre>
+                    </div>
+
+                    <div class="panel-footer">
+                        #{{comment.id}}
+                        {{ moment(comment.date).format('LLL') }} 
+                    </div>
+                </div>
+            {% endfor %}
+
+            <ul class="pager">
+                {% if comment_list.has_prev %}
+                    <li class="previous">
+                        <a href="?page={{comment_list.prev_num}}">
+                            上一页
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if comment_list.has_next %}
+                    <li class="next">
+                        <a href="?page={{comment_list.next_num}}">
+                            下一页
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
+
+        <script>
+        /* 显示编辑页、隐藏预览页 */
+        function edit()
+        {
+            let preview_tab = document.getElementById("preview-tab")
+            let edit_tab = document.getElementById("edit-tab")
+            preview_tab.setAttribute("class", "")
+            edit_tab.setAttribute("class", "active")
+            
+            let edit_div = document.getElementById("edit-div")
+            let preview_div = document.getElementById("preview-div")
+            
+            preview_div.style.display= "none";
+            edit_div.style.display = "block"
+        }
+
+        /* 更新预览内容、显示预览页、隐藏编辑页 */
+        function preview()
+        {
+            let preview_tab = document.getElementById("preview-tab")
+            let edit_tab = document.getElementById("edit-tab")
+            preview_tab.setAttribute("class", "active")
+            edit_tab.setAttribute("class", "")
+            
+            let edit_div = document.getElementById("edit-div")
+            let preview_div = document.getElementById("preview-div")
+            let edit_area = document.getElementById("edit-area")
+            
+            preview_div.innerHTML = DOMPurify.sanitize(marked(edit_area.value))
+            Prism.highlightAll();
+            window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, preview_div])
+
+            preview_div.style.display = "block";
+            edit_div.style.display = "none"
+        }
+        </script>
+        {% endblock %}
     {% endif %}
 </article>
 
-{% block comment %}
-<form role="form" method="POST" action="/admin/comment/create?article_id={{article.id}}">
-    <div class="form-group">
-        <label for="name">你的名字(非必填)</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name"/>
-    </div>
-
-    <div class="form-group">
-        <label for="email">你的邮箱(非必填)</label>
-        <input type="text" class="form-control" id="email" name="email" placeholder="Your E-Mail"/>
-    </div>
-
-    <ul class="nav nav-tabs" role="tablist" style="border-bottom: 0;">
-        <li id="edit-tab" class="active"><a href="#__not_available" onclick="edit()">编辑</a></li>
-        <li id="preview-tab"> <a href="#__not_available" onclick="preview()">预览</a></li>
-    </ul>
-
-
-    <div class="form-group" id="edit-div" style="border: 0;">
-        <textarea id="edit-area" name="content" class="form-control" rows="25" placeholder="采用Markdown编辑。"
-        style="border-top-left-radius: 0; border-color: #ddd; height: 10em;" onkeydown="tab(this)"></textarea>
-        <p class="help-block">
-            Markdown使用
-            <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">帮助</a>
-            。
-        </p>
-    </div>
-
-    <div id="preview-div" class="surface" style="display: none; width: 100%; border-color: #ddd;"></div>
-    <button type="submit" class="btn btn-default">提交</button>
-</form>
-
-<hr/>
-{% if comment_list != None %}
-    {% for comment in comment_list.items %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    {% if comment.email != None and comment.email != '' %}
-                    <a class="article-title" title="{{comment.name}}" href="mailto://{{comment.email}}">
-                    {% else %}
-                    <a class="article-title" title="{{comment.name}}"></a>
-                    {% endif %}
-                        {{comment.name}}
-                    </a>
-                </h3>
-            </div>
-            
-            <div class="panel-body comment_content">
-                <pre>{{comment.content}}</pre>
-            </div>
-
-            <div class="panel-footer">
-                #{{comment.id}}
-                {{ moment(comment.date).format('LLL') }} 
-            </div>
-        </div>
-    {% endfor %}
-
-    <ul class="pager">
-        {% if comment_list.has_prev %}
-            <li class="previous">
-                <a href="?page={{comment_list.prev_num}}">
-                    上一页
-                </a>
-            </li>
-        {% endif %}
-
-        {% if comment_list.has_next %}
-            <li class="next">
-                <a href="?page={{comment_list.next_num}}">
-                    下一页
-                </a>
-            </li>
-        {% endif %}
-    </ul>
-{% endif %}
-
-
-<script>
-/* 显示编辑页、隐藏预览页 */
-function edit()
-{
-    let preview_tab = document.getElementById("preview-tab")
-    let edit_tab = document.getElementById("edit-tab")
-    preview_tab.setAttribute("class", "")
-    edit_tab.setAttribute("class", "active")
-    
-    let edit_div = document.getElementById("edit-div")
-    let preview_div = document.getElementById("preview-div")
-    
-    preview_div.style.display= "none";
-    edit_div.style.display = "block"
-}
-
-/* 更新预览内容、显示预览页、隐藏编辑页 */
-function preview()
-{
-    let preview_tab = document.getElementById("preview-tab")
-    let edit_tab = document.getElementById("edit-tab")
-    preview_tab.setAttribute("class", "active")
-    edit_tab.setAttribute("class", "")
-    
-    let edit_div = document.getElementById("edit-div")
-    let preview_div = document.getElementById("preview-div")
-    let edit_area = document.getElementById("edit-area")
-    
-    preview_div.innerHTML = DOMPurify.sanitize(marked(edit_area.value))
-    Prism.highlightAll();
-    window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, preview_div])
-
-    preview_div.style.display = "block";
-    edit_div.style.display = "none"
-}
-</script>
-{% endblock %}
 {% endblock %}
 
 
