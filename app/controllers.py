@@ -1,7 +1,6 @@
 from . import views
 from .models import *
 from flask import request, url_for, session
-from sqlalchemy.exc import IntegrityError
 import hashlib
 from datetime import datetime,timedelta
 import pytz
