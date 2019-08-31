@@ -1,0 +1,68 @@
+{% extends "/admin/base.html" %}
+
+{% block styles %}
+    {{ super() }}
+
+    <style>
+    .table>thead>tr>th,.table>tbody>tr>td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .table>thead>tr>th:nth-child(2),.table>tbody>tr>td:nth-child(2) {
+        text-align: left;
+    }
+    </style>
+{% endblock %}
+
+{% block article %}
+
+<table class="table table-hover">
+    <caption>设置</caption>
+    <thead>
+        <tr>
+            <th>项</th>
+            <th>值</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>用户名</td>
+            <td>{{config.username}}</td>
+            <td></td>
+        </tr>
+
+        <form action="/admin/config/password" method="POST">
+            <tr>
+                <td>密码</td>
+                <td>
+                    <input id="password" type="password" class="form-control" name="password" placeholder="Password"/>
+                </td>
+                <td><button type="submit" class="btn btn-danger" onclick="return check()">修改</button></td>
+            </tr>
+        </form>
+
+        <form action="/admin/config/title" method="POST">
+            <tr>
+                <td>站点标题</td>
+                <td>
+                    <input id="title" type="text" class="form-control" name="title" placeholder="Title" value="{{config.title}}"/>
+                </td>
+                <td><button type="submit" class="btn btn-danger" onclick="return check()">修改</button></td>
+            </tr>
+        </form>
+
+        <form  action="/admin/config/email" method="POST">
+            <tr>
+                <td>E-Mail</td>
+                <td>
+                    <input id="email" type="text" class="form-control" name="email" placeholder="E-Mail" value="{{config.email}}"/>
+                </td>
+                <td><button type="submit" class="btn btn-danger" onclick="return check()">修改</button></td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+
+{% endblock %}

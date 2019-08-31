@@ -304,6 +304,61 @@ def comment_delete() :
     else :
         return views.redirect(url_for('/admin/login'), "请登录。")
 
+# 设置页面
+def config() :
+    if is_login() :
+        id = session.get('id')
+        cfg = User.query.filter_by(id=id).first()
+        if(cfg != None) :
+            return views.render_config(site_title(), cfg)
+    else :
+        return views.redirect(url_for('/admin/login'), "请登录。")
+
+# 修改密码
+def config_password() :
+    if is_login() :
+        id = session.get('id')
+        cfg = User.query.filter_by(id=id).first()
+        if(cfg != None) :
+            cfg.password = request.form.get('password')
+            db.session.add(cfg)
+            db.session.commit()
+            return views.redirect(url_for('/admin/config'), "密码修改成功。")
+        else :
+            return views.redirect(url_for('/admin/login'), "登录超时。")
+    else :
+        return views.redirect(url_for('/admin/login'), "请登录。")
+
+# 修改站点标题
+def config_title() :
+    if is_login() :
+        id = session.get('id')
+        cfg = User.query.filter_by(id=id).first()
+        if(cfg != None) :
+            cfg.title = request.form.get('title')
+            db.session.add(cfg)
+            db.session.commit()
+            return views.redirect(url_for('/admin/config'), "站点标题修改成功。")
+        else :
+            return views.redirect(url_for('/admin/login'), "登录超时。")
+    else :
+        return views.redirect(url_for('/admin/login'), "请登录。")
+
+# 修改邮箱地址
+def config_email() :
+    if is_login() :
+        id = session.get('id')
+        cfg = User.query.filter_by(id=id).first()
+        if(cfg != None) :
+            cfg.email = request.form.get('email')
+            db.session.add(cfg)
+            db.session.commit()
+            return views.redirect(url_for('/admin/config'), "邮箱地址修改成功。")
+        else :
+            return views.redirect(url_for('/admin/login'), "登录超时。")
+    else :
+        return views.redirect(url_for('/admin/login'), "请登录。")
+
 
 ###################################################################
 # ! 以下为初始化页面  

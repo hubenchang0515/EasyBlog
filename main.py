@@ -39,6 +39,11 @@ routes = [
     ['/admin/comment/manage',   app.controllers.comment_manage],
     ['/admin/comment/create',   app.controllers.comment_create],
     ['/admin/comment/delete',   app.controllers.comment_delete],
+
+    ['/admin/config',           app.controllers.config], 
+    ['/admin/config/password',  app.controllers.config_password], 
+    ['/admin/config/title',     app.controllers.config_title], 
+    ['/admin/config/email',     app.controllers.config_email], 
     
 ]
 

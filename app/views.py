@@ -62,6 +62,10 @@ def render_message_manage(site_title, message_list=None) :
 def render_comment_manage(site_title, comment_list=None) :
     return render_template('/admin/comment/manage.html', site_title=site_title, comment_list=comment_list)
 
+# 设置
+def render_config(site_title, config) :
+    return render_template('/admin/config/index.html', site_title=site_title, config=config)
+
 ###################################################################
 # ! 以下为初始化页面  
 ###################################################################
