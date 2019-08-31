@@ -154,7 +154,7 @@ def article_create() :
                             reading=0, user_id=user_id, category_id=category_id)
         db.session.add(article)
         db.session.commit()
-        return views.redirect(url_for('/admin/artilce/manage'))
+        return views.redirect(url_for('/admin/article/manage'))
     else :
         return views.redirect(url_for('/admin/login'), "请登录。")
 
