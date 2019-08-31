@@ -52,7 +52,7 @@ class Article(db.Model) :
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(256), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    date = db.Column(db.DateTime, nullable=False) # 以时间戳的形式保存
+    date = db.Column(db.DateTime, nullable=False) # UTC时间
     reading = db.Column(db.Integer, nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
@@ -70,7 +70,7 @@ class Comment(db.Model) :
     name = db.Column(db.String(64), nullable=True)
     email = db.Column(db.String(128), nullable=True)
     content = db.Column(db.String(2048), nullable=False)
-    date = db.Column(db.DateTime, nullable=False) # 以时间戳的形式保存
+    date = db.Column(db.DateTime, nullable=False) # UTC时间
 
     article_id = db.Column(db.Integer, db.ForeignKey('articles.id'), nullable=False)
 
@@ -84,7 +84,7 @@ class Message(db.Model) :
     name = db.Column(db.String(64), nullable=True)
     email = db.Column(db.String(128), nullable=True)
     content = db.Column(db.String(2048), nullable=False)
-    date = db.Column(db.DateTime, nullable=False) # 以时间戳的形式保存
+    date = db.Column(db.DateTime, nullable=False) # UTC时间
 
     def __repr__(self) :
         return '<Comment %r>' % self.id

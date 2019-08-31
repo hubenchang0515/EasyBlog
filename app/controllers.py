@@ -59,7 +59,11 @@ def article_reading() :
 
     article_id = request.args.get('id', 1, type=int)
     article = Article.query.filter_by(id=article_id).first()
-    return views.render_article_reading(site_title(), category_list, recent_articles, article)
+
+    page = request.args.get('page', 1, type=int)
+    comment_list = Comment.query.filter_by(article_id=article_id).order_by(Comment.date.desc()).paginate(page=page, per_page=10)
+
+    return views.render_article_reading(site_title(), category_list, recent_articles, article, comment_list)
 
 # 文章列表
 def article_list() :
@@ -242,7 +246,7 @@ def message_manage() :
 # 新增留言
 def message_create() :
     name = request.form.get('name', '匿名', int)
-    email = request.form.get('email')
+    email = request.form.get('email', None, str)
     content = request.form.get('content')
     msg = Message(name=name, email=email, content=content, date=utc_now())
     db.session.add(msg)
@@ -263,6 +267,17 @@ def message_delete() :
     else :
         return views.redirect(url_for('/admin/login'), "请登录。")
     
+# 新增回复
+def comment_create() :
+    name = request.form.get('name', '匿名', int)
+    email = request.form.get('email', None, str)
+    content = request.form.get('content')
+    article_id = request.args.get('article_id', type=int)
+    comment = Comment(name=name, email=email, content=content, date=utc_now(), article_id=article_id)
+    db.session.add(comment)
+    db.session.commit()
+    url = "/article/reading?id=" + str(article_id)
+    return views.redirect(url)
 
 
 ###################################################################

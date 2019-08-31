@@ -16,17 +16,6 @@
 {% endblock %}
 
 {% block article %}
-    {% if error_message %}
-    <div class="panel panel-warning" style="max-width:600px; margin:auto;">
-        <div class="panel-heading">
-            <h3 class="panel-title">失败</h3>
-        </div>
-    
-        <div class="panel-body">
-            {{error_message}}
-        </div>
-    </div>
-    {% endif %}
     <form role="form" method="POST" action="/admin/message/create">
         <div class="form-group">
             <label for="name">你的名字(非必填)</label>
@@ -39,8 +28,8 @@
         </div>
 
         <ul class="nav nav-tabs" role="tablist" style="border-bottom: 0;">
-            <li id="edit-tab" class="active"><a href="#" onclick="edit()">编辑</a></li>
-            <li id="preview-tab"> <a href="#" onclick="preview()">预览</a></li>
+            <li id="edit-tab" class="active"><a href="#__not_available" onclick="edit()">编辑</a></li>
+            <li id="preview-tab"> <a href="#__not_available" onclick="preview()">预览</a></li>
         </ul>
 
 
@@ -64,7 +53,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    {% if message.email != None %}
+                    {% if message.email != None and message.email != '' %}
                     <a class="article-title" title="{{message.name}}" href="mailto://{{message.email}}">
                     {% else %}
                     <a class="article-title" title="{{message.name}}"></a>

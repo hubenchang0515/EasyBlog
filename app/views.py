@@ -16,16 +16,16 @@ def redirect(url, alert=None) :
 def render_index(site_title, category_list, recent_articles, article=None) :
     return render_template('public.html',site_title=site_title, category_list=category_list, recent_articles=recent_articles, article=article)
 
-def render_article_reading(site_title, category_list, recent_articles, article=None) :
-    return render_template('/article/reading.html',site_title=site_title, category_list=category_list, recent_articles=recent_articles, article=article)
+def render_article_reading(site_title, category_list, recent_articles, article=None, comment_list=None) :
+    return render_template('/article/reading.html',site_title=site_title, category_list=category_list, recent_articles=recent_articles, article=article, comment_list=comment_list)
 
 # 渲染文章列表页面
 def render_article_list(site_title, category_list, recent_articles, article_list=None) :
     return render_template('/article/list.html', site_title=site_title, category_list=category_list, recent_articles=recent_articles, article_list=article_list)
 
 # 渲染留言页面
-def render_message(site_title, category_list, recent_articles, message_list=None, error_message=None) :
-    return render_template('/message.html', site_title=site_title, category_list=category_list, recent_articles=recent_articles, message_list=message_list, error_message=error_message)
+def render_message(site_title, category_list, recent_articles, message_list=None) :
+    return render_template('/message.html', site_title=site_title, category_list=category_list, recent_articles=recent_articles, message_list=message_list)
 
 
 
