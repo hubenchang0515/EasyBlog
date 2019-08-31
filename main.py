@@ -35,8 +35,10 @@ routes = [
     ['/admin/message/manage',   app.controllers.message_manage],
     ['/admin/message/create',   app.controllers.message_create],
     ['/admin/message/delete',   app.controllers.message_delete],
-    
+
+    ['/admin/comment/manage',   app.controllers.comment_manage],
     ['/admin/comment/create',   app.controllers.comment_create],
+    ['/admin/comment/delete',   app.controllers.comment_delete],
     
 ]
 

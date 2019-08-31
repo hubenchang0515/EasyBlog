@@ -266,6 +266,16 @@ def message_delete() :
             return views.redirect(url_for('/admin/message/manage'))
     else :
         return views.redirect(url_for('/admin/login'), "请登录。")
+
+# 管理回复
+def comment_manage() :
+    if is_login() :
+        page = request.args.get('page', 1, type=int)
+        comment_list = Comment.query.order_by(Comment.date.desc()).paginate(page=page, per_page=30)
+        return views.render_comment_manage(site_title(), comment_list)
+    else :
+        return views.redirect(url_for('/admin/login'), "请登录。")
+    
     
 # 新增回复
 def comment_create() :
@@ -276,8 +286,23 @@ def comment_create() :
     comment = Comment(name=name, email=email, content=content, date=utc_now(), article_id=article_id)
     db.session.add(comment)
     db.session.commit()
-    url = "/article/reading?id=" + str(article_id)
-    return views.redirect(url)
+    url_to = "/article/reading?id=" + str(article_id)
+    return views.redirect(url_to)
+
+# 删除回复
+def comment_delete() :
+    if is_login() :
+        id = request.args.get('id',type=int)
+        page = request.args.get('page', type=int, default=1)
+        comment = Comment.query.filter_by(id=id).first()
+        if comment != None :
+            db.session.delete(comment)
+            db.session.commit()
+
+        url = '/admin/comment/manage?page=' + str(page)
+        return views.redirect(url)
+    else :
+        return views.redirect(url_for('/admin/login'), "请登录。")
 
 
 ###################################################################

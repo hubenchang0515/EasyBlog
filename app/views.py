@@ -57,6 +57,10 @@ def render_category_manage(site_title, category_list=None) :
 # 管理留言
 def render_message_manage(site_title, message_list=None) :
     return render_template('/admin/message/manage.html', site_title=site_title, message_list=message_list)
+    
+# 管理回复
+def render_comment_manage(site_title, comment_list=None) :
+    return render_template('/admin/comment/manage.html', site_title=site_title, comment_list=comment_list)
 
 ###################################################################
 # ! 以下为初始化页面  

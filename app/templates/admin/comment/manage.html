@@ -1,0 +1,43 @@
+{% extends "/admin/base.html" %}
+
+{% block article %}
+<table class="table table-hover">
+    <caption>回复管理</caption>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>名字</th>
+            <th>时间</th>
+            <th>删除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for comment in comment_list.items %}
+        <tr title="{{comment.content}}">
+            <td>{{comment.id}}</td>
+            <td>{{comment.name}}</td>
+            <td>{{ moment(comment.date).format('LLL') }} </td>
+            <td><a class="btn btn-danger btn-xs" href="/admin/comment/delete?id={{comment.id}}&page={{comment_list.page}}">删除</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<ul class="pager">
+        {% if comment_list.has_prev %}
+            <li class="previous">
+                <a href="?page={{comment_list.prev_num}}">
+                    上一页
+                </a>
+            </li>
+        {% endif %}
+
+        {% if comment_list.has_next %}
+            <li class="next">
+                <a href="?page={{comment_list.next_num}}">
+                    下一页
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}
