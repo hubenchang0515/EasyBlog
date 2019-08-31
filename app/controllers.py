@@ -171,7 +171,7 @@ def article_modify() :
         
         db.session.add(article)
         db.session.commit()
-        return views.redirect(url_for('/admin/artilce/manage'))
+        return views.redirect(url_for('/admin/article/manage'))
     else :
         return views.redirect(url_for('/admin/login'), "请登录。")
 
@@ -183,7 +183,7 @@ def article_delete() :
         if article != None :
             db.session.delete(article)
             db.session.commit()
-        return views.redirect(url_for('/admin/artilce/manage'))
+        return views.redirect(url_for('/admin/article/manage'))
     else :
         return views.redirect(url_for('/admin/login'), "请登录。")
 
