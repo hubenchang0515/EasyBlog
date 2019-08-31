@@ -31,6 +31,7 @@ routes = [
     ['/admin/category/delete',  app.controllers.category_delete],
     ['/admin/message/manage',   app.controllers.message_manage],
     ['/admin/message/create',   app.controllers.message_create],
+    ['/admin/message/delete',   app.controllers.message_delete],
     
     
 ]

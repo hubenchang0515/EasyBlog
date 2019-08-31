@@ -242,7 +242,7 @@ def message_manage() :
 # 新增留言
 def message_create() :
     name = request.form.get('name', '匿名', int)
-    email = request.form.get('email', None, int)
+    email = request.form.get('email')
     content = request.form.get('content')
     msg = Message(name=name, email=email, content=content, date=utc_now())
     db.session.add(msg)
@@ -250,6 +250,20 @@ def message_create() :
 
     return views.redirect(url_for('/message'))
     
+
+# 删除留言
+def message_delete() :
+    if is_login() :
+        id = request.args.get('id',type=int)
+        msg = Message.query.filter_by(id=id).first()
+        if msg != None :
+            db.session.delete(msg)
+            db.session.commit()
+            return views.redirect(url_for('/admin/message/manage'))
+    else :
+        return views.redirect(url_for('/admin/login'), "请登录。")
+    
+
 
 ###################################################################
 # ! 以下为初始化页面  

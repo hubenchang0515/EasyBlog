@@ -13,7 +13,7 @@
     </thead>
     <tbody>
         {% for message in message_list.items %}
-        <tr>
+        <tr title="{{message.content}}">
             <td>{{message.id}}</td>
             <td>{{message.name}}</td>
             <td>{{ moment(message.date).format('LLL') }} </td>
