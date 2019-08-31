@@ -113,7 +113,7 @@ def login() :
         password = encrypt(username, password)
         user = User.query.filter_by(id=User.id_of_admin, username=username, password=password).first()
         if user == None :
-            return views.render_login(site_title(), "用户名或密码错误。")
+            return views.redirect(url_for('/admin/login'), "失败，用户名或密码错误。")
         else :
             session['id'] = user.id
             session['username'] = username
@@ -128,7 +128,7 @@ def edit() :
         article = Article.query.filter_by(id=article_id).first()
         return views.render_edit(site_title(), category_list, article)
     else :
-        return views.redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'), "请登录。")
 
 # 管理文章
 def article_manage() :
@@ -137,7 +137,7 @@ def article_manage() :
         article_list = Article.query.order_by(Article.date.desc()).paginate(page=page, per_page=10)
         return views.render_article_manage(site_title(), article_list)
     else :
-        return views.redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'), "请登录。")
     
 
 # 新建文章
@@ -151,9 +151,9 @@ def article_create() :
                             reading=0, user_id=user_id, category_id=category_id)
         db.session.add(article)
         db.session.commit()
-        return views.redirect(url_for('/admin/'))
+        return views.redirect(url_for('/admin/artilce/manage'))
     else :
-        return views.redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'), "请登录。")
 
 #修改文章
 def article_modify() :
@@ -168,9 +168,9 @@ def article_modify() :
         
         db.session.add(article)
         db.session.commit()
-        return views.redirect(url_for('/admin/'))
+        return views.redirect(url_for('/admin/artilce/manage'))
     else :
-        return views.redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'), "请登录。")
 
 #删除文章
 def article_delete() :
@@ -180,9 +180,9 @@ def article_delete() :
         if article != None :
             db.session.delete(article)
             db.session.commit()
-        return views.redirect(url_for('/admin/'))
+        return views.redirect(url_for('/admin/artilce/manage'))
     else :
-        return views.redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'), "请登录。")
 
 
 # 管理分类
@@ -191,7 +191,7 @@ def category_manage() :
         category_list = Category.query.order_by(Category.id.desc()).all()
         return views.render_category_manage(site_title(), category_list)
     else :
-        return views.redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'), "请登录。")
 
 # 修改分类
 def category_modify() :
@@ -209,7 +209,7 @@ def category_modify() :
 
         return views.redirect(url_for('/admin/category/manage'))
     else :
-        return views.redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'), "请登录。")
 
 # 删除分类
 def category_delete() :
@@ -228,7 +228,7 @@ def category_delete() :
 
         return views.redirect(url_for('/admin/category/manage'))
     else :
-        return views.redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'), "请登录。")
 
 # 管理留言
 def message_manage() :
@@ -237,7 +237,7 @@ def message_manage() :
         message_list = Message.query.order_by(Message.date.desc()).paginate(page=page, per_page=30)
         return views.render_message_manage(site_title(), message_list)
     else :
-        return views.redirect(url_for('/admin/login'))
+        return views.redirect(url_for('/admin/login'), "请登录。")
 
 # 新增留言
 def message_create() :
