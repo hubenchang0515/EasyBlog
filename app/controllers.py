@@ -58,6 +58,10 @@ def article_reading() :
 
     article_id = request.args.get('id', 1, type=int)
     article = Article.query.filter_by(id=article_id).first()
+    if article != None :
+        article.reading += 1
+        db.session.add(article)
+        db.session.commit()
 
     page = request.args.get('page', 1, type=int)
     comment_list = Comment.query.filter_by(article_id=article_id).order_by(Comment.date.desc()).paginate(page=page, per_page=10)
