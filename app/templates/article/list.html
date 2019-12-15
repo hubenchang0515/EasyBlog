@@ -38,7 +38,7 @@
         {% if article_list.has_prev %}
             <li class="previous">
                 {% if article_list.category_id != None %}
-                <a href="?{{article_list.category_id}}&page={{article_list.prev_num}}">
+                <a href="?category={{article_list.category_id}}&page={{article_list.prev_num}}">
                 {% else %}
                 <a href="?page={{article_list.prev_num}}">
                 {% endif %}
@@ -50,7 +50,7 @@
         {% if article_list.has_next %}
             <li class="next">
                 {% if article_list.category_id != None %}
-                <a href="?{{article_list.category_id}}&page={{article_list.next_num}}">
+                <a href="?category={{article_list.category_id}}&page={{article_list.next_num}}">
                 {% else %}
                 <a href="?page={{article_list.next_num}}">
                 {% endif %}
