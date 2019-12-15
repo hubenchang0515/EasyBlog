@@ -10,15 +10,15 @@ html,body {
 
 .surface {
   display: block;
-  padding: 9.5px;
+  padding: 32px;
   margin: 0 0 10px;
-  font-size: 13px;
-  line-height: 1.42857143;
+  font-size: 16px;
+  line-height: 2;
   color: #333;
   word-break: break-all;
   word-wrap: break-word;
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
+  background-color: white;
+  border: 1px solid black;
   border-radius: 4px;
   overflow: auto;
 }
@@ -31,7 +31,7 @@ html,body {
 
 /* 图片宽度不超出范围 */
 .surface img{
-  width: 99%;
+  max-width: 99%;
 }
 
 /* hr标签加粗 */
@@ -43,17 +43,19 @@ html,body {
 .surface table{
   border-collapse: collapse;
   border: none;
-  width: 99%;
+  max-width: 99%;
 }
 
 /* 表格显示边框 */
 .surface td{
-  border: solid #000 1px;
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5
 }
 
 /* 表头居中 */
 .surface th{
-  border: solid #000 1px;
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
   text-align: center;
 }
 
@@ -64,4 +66,13 @@ html,body {
   text-overflow:ellipsis;
   white-space:nowrap;
   color:inherit;"
+}
+
+/* 引用块 */
+blockquote {
+  font-size: 16px;
+  padding: 10px 20px;
+  margin: 0px 0px 20px;
+  background-color: #f1f8ff;
+  border-left: 5px solid rgb(200, 225, 255);
 }
