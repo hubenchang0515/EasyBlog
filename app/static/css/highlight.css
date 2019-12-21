@@ -1,13 +1,15 @@
 code {
+  margin: 0 1ex;
   padding: 2px 4px;
   font-size: 90%;
   color: deeppink;
-  background-color: #dddddd;
+  background-color: #d9edf7;
   border-radius: 4px;
 }
 
 
 pre code{
+  margin: 0;
   color: white;
   background-color: #1E1E1E;
 }
