@@ -10,7 +10,6 @@ html,body {
 
 .surface {
   display: block;
-  padding: 32px;
   margin: 0 0 10px;
   font-size: 16px;
   line-height: 2;
@@ -18,8 +17,6 @@ html,body {
   word-break: break-all;
   word-wrap: break-word;
   background-color: white;
-  border: 1px solid black;
-  border-radius: 4px;
   overflow: auto;
 }
 
