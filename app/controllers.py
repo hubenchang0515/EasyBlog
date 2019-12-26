@@ -4,6 +4,58 @@ from flask import request, url_for, session
 import hashlib
 from datetime import datetime,timedelta
 import pytz
+import random
+
+###################################################################
+# 留言和回复为空时，随机生成一条
+###################################################################
+def random_message():
+    today = datetime.today()
+
+    if today.month == 1 and today.day == 1 :
+        return "🧧新年快乐，万事如意！"
+
+    if today.month == 5 and today.day == 1:
+        return "☭全世界无产阶级联合起来"
+
+    if today.month == 5 and today.day == 12:
+        return "👼向全体南丁格尔小姐致以节日的祝贺和崇高敬意"
+
+    if today.month == 5 and today.day == 15:
+        return "🎂生日快乐"
+
+    if today.month == 6 and today.day == 1:
+        return "🎈儿童节快乐"
+
+    if today.month == 7 and today.day == 7:
+        return "庆祝中国人民抗日战争胜利%d周年" % (today.year - 1945)
+
+    if today.month == 10 and today.day == 1:
+        return "庆祝中华人民共和国成立%d周年" % (today.year - 1949)
+
+
+    if today.month == 12 and today.day in (24, 25):
+        return "🎄Merry Christmas"
+
+    message_list = [
+        "好！顶！赞！", 
+
+        "富强、民主、文明、和谐、自由、平等、公正、法治、爱国、敬业、诚信、友善",
+
+        "福如东海，寿比南山。",
+
+        "万事如意，前程似锦。",
+
+        "安居乐业，日进斗金。",
+
+        "时运亨通，鹏程万里。",
+
+        "天真烂漫，无忧无虑。",
+
+        "蒸蒸日上，平步青云。",
+    ]
+
+    return random.choice(message_list)
 
 ###################################################################
 # 辅助函数
@@ -250,7 +302,10 @@ def message_manage() :
 def message_create() :
     name = request.form.get('name', '匿名', int)
     email = request.form.get('email', None, str)
-    content = request.form.get('content')
+    content = request.form.get('content', None, str)
+    if content is None or len(content.strip()) == 0:
+        content = random_message()
+
     msg = Message(name=name, email=email, content=content, date=utc_now())
     db.session.add(msg)
     db.session.commit()
@@ -284,8 +339,10 @@ def comment_manage() :
 def comment_create() :
     name = request.form.get('name', '匿名', int)
     email = request.form.get('email', None, str)
-    content = request.form.get('content')
     article_id = request.args.get('article_id', type=int)
+    content = request.form.get('content', None, str)
+    if content is None or len(content.strip()) == 0:
+        content = random_message()
     comment = Comment(name=name, email=email, content=content, date=utc_now(), article_id=article_id)
     db.session.add(comment)
     db.session.commit()
