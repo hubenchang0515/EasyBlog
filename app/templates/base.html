@@ -18,6 +18,7 @@
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     {{ super() }}
     {{ moment.include_moment() }}
+    {{ moment.locale('zh-cn') }}
 {% endblock %}
 
 {% block content %}

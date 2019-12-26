@@ -16,7 +16,7 @@
         <tr title="{{comment.content}}">
             <td>{{comment.id}}</td>
             <td>{{comment.name}}</td>
-            <td>{{ moment(comment.date).format('LLL') }} </td>
+            <td>{{ moment(article.date).format('YYYY年MM月DD日  HH:mm:SS') }}</td>
             <td><a class="btn btn-danger btn-xs" href="/admin/comment/delete?id={{comment.id}}&page={{comment_list.page}}">删除</a></td>
         </tr>
         {% endfor %}
