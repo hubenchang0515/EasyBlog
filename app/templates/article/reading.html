@@ -37,7 +37,7 @@
         <h1 class="article-title" title="{{article.title}}">{{ article.title }}</h1>
         <p>
             <a class="label label-info" href="/article/list?category={{article.category.id}}">{{article.category.name}}</a>
-            阅读({{ article.reading }})  {{ moment(article.date).format('YYYY年MM月DD日  HH:mm:SS') }} 
+            阅读({{ article.reading }})  {{ moment(article.date).format('YYYY年MM月DD日  HH:mm:ss') }} 
         </p>
         <div id="content" class="surface">
             {% if article.content != None %}
@@ -99,7 +99,7 @@
 
                     <div class="panel-footer">
                         #{{comment.id}}
-                        {{ moment(article.date).format('YYYY年MM月DD日  HH:mm:SS') }}
+                        {{ moment(comment.date).format('YYYY年MM月DD日  HH:mm:ss') }}
                     </div>
                 </div>
             {% endfor %}

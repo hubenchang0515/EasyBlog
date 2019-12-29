@@ -28,7 +28,7 @@
                 <div class="panel-footer">
                     <a class="label label-info" href="/article/list?category={{article.category.id}}">{{article.category.name}}</a>
                     阅读({{ article.reading }}) 
-                    {{ moment(article.date).format('YYYY年MM月DD日  HH:mm:SS') }}
+                    {{ moment(article.date).format('YYYY年MM月DD日  HH:mm:ss') }}
                 </div>
             </div>
         {% endfor %}
