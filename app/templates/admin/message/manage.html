@@ -16,7 +16,7 @@
         <tr title="{{message.content}}">
             <td>{{message.id}}</td>
             <td>{{message.name}}</td>
-            <td>{{ moment(article.date).format('YYYY年MM月DD日  HH:mm:SS') }}</td>
+            <td>{{ moment(message.date).format('YYYY年MM月DD日  HH:mm:SS') }}</td>
             <td><a class="btn btn-danger btn-xs" href="/admin/message/delete?id={{message.id}}">删除</a></td>
         </tr>
         {% endfor %}
