@@ -76,11 +76,11 @@ blockquote {
 
 /* 标签 */
 .label {
-  display: inline;
+  display: inline-block;
   padding: .2em .6em .3em;
   font-size: 75%;
   font-weight: 700;
-  line-height: 2;
+  line-height: 1;
   color: #fff;
   text-align: center;
   white-space: nowrap;
